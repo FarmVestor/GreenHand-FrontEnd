@@ -35,6 +35,18 @@ Coded by www.creative-tim.com
           you can set the columns amount based on this key.
   10. The `rowsPerColumn` key is used to define that how many rows should be in a column.
 */
+// @mui material components
+import { AccessAlarm, Add, ThreeDRotation } from '@mui/icons-material';
+
+
+
+import Farmers from "layouts/pages/Farmers"
+import Deals from "layouts/pages/Deals"
+import AddDeal from "layouts/pages/Deals/AddDeal"
+import EditDeal from "layouts/pages/Deals/EditDeal"
+import AddFarm from "layouts/pages/Farmers/AddFarm"
+import EditFarm from "layouts/pages/Farmers/EditFarm"
+import Trush from "layouts/pages/Trush"
 
 // @mui material components
 import Icon from "@mui/material/Icon";
@@ -55,8 +67,12 @@ import Farms from "layouts/pages/Farms"
 import Home from "layouts/pages/Home"
 import SignUp from "layouts/pages/Sign-up";
 import Investors from "layouts/pages/Investors"
+import {useContext} from "react"
+import { AuthContext } from "context/AuthContext";
 
-function Nav (){
+function MyRoutes (){
+  const ctx=useContext(AuthContext)
+  console.log("ctxxx",ctx)
   const routes = [
     {
       name: "Home",
@@ -136,7 +152,7 @@ function Nav (){
   ];
   
   
-  const greenhand = [
+   const greenhand = [
     {
       name: "farms/description",
       icon: <GitHubIcon />,
@@ -150,10 +166,79 @@ function Nav (){
       component: <InvestorDescription />,
     },
   ]
-return {routes:routes,
-  greenhand:greenhand}
+
+
+
+
+  if(ctx.userTypeId==2){
+routes.push({
+  // name: "Account",
+  icon: <Icon fontSize="small">account_circle</Icon>,
+
+  collapse: [
+    {
+      name: "Profile",
+      route: "Profile",
+      component: <SignIn />,
+    },
+    {
+      name: "My Farms",
+      route: "/My_Farms",
+      component: <Farmers />,
+    },
+    {
+      name: "My Deals",
+      route: "/My_deals",
+      component: <Deals />,
+    },
+    {
+      name: "My Trush",
+      route: "/My_Trush",
+      component: <Trush />,
+    },
+    {
+      name: "Sign out",
+      route: "/Sign-out",
+      component: <SignIn />,
+    },
+    
+  ],
+  
+},
+)
+greenhand.push({
+  name: "deal/add",
+  icon: <GitHubIcon />,
+  route: "/deal/add",
+  component: <AddDeal />,
+},
+{
+  name: "deal/edit",
+  icon: <GitHubIcon />,
+  route: "/deal/edit/:id",
+  component: <EditDeal />,
+},
+{
+  name: "farm/add",
+  icon: <GitHubIcon />,
+  route: "/farm/add",
+  component: <AddFarm />,
+},
+{
+  name: "farm/edit",
+  icon: <GitHubIcon />,
+  route: "/farm/edit/:id",
+  component: <EditFarm />,
+},)
+  }else if(ctx.userTypeId==3){
+    routes.push()
+
+  }
+  
+return [routes,
+  greenhand]
 }
-export default Nav;
+export default MyRoutes;
 
 // const routes = [
 //   {

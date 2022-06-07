@@ -40,7 +40,7 @@ import {Link} from "react-router-dom"
 import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 
 // Routes
-import routes from "routes";
+import MyRoutes from "routes";
 import footerRoutes from "footer.routes";
 import RotatingCard from "examples/Cards/RotatingCard";
 import RotatingCardFront from "examples/Cards/RotatingCard/RotatingCardFront";
@@ -53,6 +53,8 @@ import bgBack from "assets/images/rotating-card-bg-back.jpeg";
 import bgImage from "assets/images/bg.jpg";
 
 function Home () {
+  const myRoutes=MyRoutes()
+  const routes=myRoutes[0]
   return (
     <>
       <DefaultNavbar

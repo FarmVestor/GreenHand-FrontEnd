@@ -40,13 +40,15 @@ import {Link} from "react-router-dom"
 import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 
 // Routes
-import routes from "routes";
+import MyRoutes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/bg-presentation.jpg";
 
 function Presentation() {
+  const myRoutes=MyRoutes()
+  const routes=myRoutes[0]
   return (
     <>
       <DefaultNavbar

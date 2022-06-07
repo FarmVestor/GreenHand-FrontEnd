@@ -40,12 +40,14 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import SimpleFooter from "examples/Footers/SimpleFooter";
 
 // Material Kit 2 React page layout routes
-import routes from "routes";
+import MyRoutes from "routes";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function SignInBasic() {
+  const myRoutes=MyRoutes()
+  const routes=myRoutes[0]
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);

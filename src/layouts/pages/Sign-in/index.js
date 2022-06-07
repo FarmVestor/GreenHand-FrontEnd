@@ -38,52 +38,57 @@ import { Alert } from "@mui/material";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import SimpleFooter from "examples/Footers/SimpleFooter";
 // Material Kit 2 React page layout routes
-import routes from "routes";
+import MyRoutes from "routes";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function SignIn() {
-
+  const myRoutes=MyRoutes()
+  const routes=myRoutes[0]
   const [rememberMe, setRememberMe] = useState(false);
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const ctx = useContext(AuthContext)
   const navigate = useNavigate()
-  
-
-	const emailRef = useRef(null)
-	const passwordRef = useRef(null)
 
 
-	const login = () => {
-		const email = emailRef.current.querySelector('input[type=email]').value
-		const password = passwordRef.current.querySelector('input[type=password]').value
-		fetch(`${process.env.REACT_APP_API_URL}users/login`, {
-			method: 'POST',
-			body: JSON.stringify({
-				userEmail:email,
-				userPassword:password
-			}),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then(response => {
-			response.json().then(loggedIn => {
-                    
-                    if(loggedIn.success){
-                    alert("log-in successfully")
-                    console.log(loggedIn,"looooged")
-					ctx.login(loggedIn?.token)
-					navigate('/dashboard')
-                    }
-                    else{
-                        alert("log-in failed")  
-                    }
-				
-			})
-		})
-		.catch(e => e)
-	}
+  const emailRef = useRef(null)
+  const passwordRef = useRef(null)
+
+
+  const login = () => {
+    const email = emailRef.current.querySelector('input[type=email]').value
+    const password = passwordRef.current.querySelector('input[type=password]').value
+    fetch(`${process.env.REACT_APP_API_URL}users/login`, {
+      method: 'POST',
+      body: JSON.stringify({
+        userEmail: email,
+        userPassword: password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      response.json().then(loggedIn => {
+
+        if (loggedIn.success) {
+          alert("log-in successfully")
+          console.log(loggedIn, "looooged")
+          window.localStorage.setItem('token',loggedIn.token)
+          window.localStorage.setItem('userTypeId',loggedIn.userTypeId)
+          ctx.setUserTypeId(loggedIn.userTypeId)
+
+          ctx.login(loggedIn?.token)
+          navigate('/dashboard')
+        }
+        else {
+          alert("log-in failed")
+        }
+
+      })
+    })
+      .catch(e => e)
+  }
 
   return (
     <>
@@ -134,7 +139,7 @@ function SignIn() {
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
                   Sign in
                 </MKTypography>
-               
+
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
@@ -185,7 +190,7 @@ function SignIn() {
       <MKBox width="100%" position="absolute" zIndex={2} bottom="1.625rem">
         <SimpleFooter light />
       </MKBox>
-     
+
     </>
   );
 }

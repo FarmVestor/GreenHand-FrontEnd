@@ -34,13 +34,15 @@ import Featuring from "pages/LandingPages/AboutUs/sections/Featuring";
 import Newsletter from "pages/LandingPages/AboutUs/sections/Newsletter";
 
 // Routes
-import routes from "routes";
+import MyRoutes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/bg-about-us.jpg";
 
 function AboutUs() {
+  const myRoutes=MyRoutes()
+  const routes=myRoutes[0]
   return (
     <>
       <DefaultNavbar

@@ -27,13 +27,15 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // Routes
-import routes from "routes";
+import MyRoutes from "routes";
 import footerRoutes from "footer.routes";
 
 // Image
 import bgImage from "assets/images/illustrations/illustration-reset.jpg";
 
 function ContactUs() {
+  const myRoutes=MyRoutes()
+  const routes=myRoutes[0]
   return (
     <>
       <MKBox position="fixed" top="0.5rem" width="100%">

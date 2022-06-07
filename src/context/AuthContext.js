@@ -2,13 +2,22 @@ import { createContext, useState } from "react";
 
 export const AuthContext = createContext({
     isAuthenticated: false,
-    token: '',
+    token: window.localStorage.getItem('token') || null,
+    userId:window.localStorage.getItem('userId') || null, 
+    userTypeId:window.localStorage.getItem('userTypeId') || null, 
+
     login: (token) => {},
-    logout: () => {}
+    logout: () => {},
+    setUserId:()=>{},
+    setUserTypeId:()=>{}
+
 })
 
 export const AuthProvider = (props) => {
     const [token, setToken] = useState(window.localStorage.getItem('token'))
+    const [userId, setUserId] = useState(null)
+    const [userTypeId, setUserTypeId] = useState(null)
+
     const [isAuthenticated, setIsAuthenticated] = useState(!!token)
     
     const login = (token) => {
@@ -25,7 +34,12 @@ export const AuthProvider = (props) => {
         isAuthenticated,
         token,
         login,
-        logout
+        logout,
+        userId,
+        setUserId,
+        userTypeId,
+        setUserTypeId
+
     }}>
         {props.children}
     </AuthContext.Provider>

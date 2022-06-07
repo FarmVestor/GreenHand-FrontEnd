@@ -27,8 +27,8 @@ import Presentation from "layouts/pages/presentation";
 import Home from "layouts/pages/Home";
 
 // Material Kit 2 React routes
-// import routes from "routes";
-import Nav from "routes";
+import MyRoutes from "routes";
+// import MyRoutes from "routes";
 
 // import { greenhand } from "routes";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -42,8 +42,10 @@ import MKAlert from "components/MKAlert";
 
 
 export default function App() {
-  const {routes}=Nav()
-  const {greenhand}=Nav()
+  const nav=MyRoutes()
+  const greenhand=nav[1]
+  const routes=nav[0]
+
   console.log("routessss",routes)
   console.log("greenhand",greenhand)
 

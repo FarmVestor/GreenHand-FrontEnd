@@ -21,9 +21,11 @@ import MKBox from "components/MKBox";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 
 // Routes
-import routes from "routes";
+import MyRoutes from "routes";
 
 function NavbarDark() {
+  const myRoutes=MyRoutes()
+  const routes=myRoutes[0]
   return (
     <MKBox variant="gradient" bgColor="dark" shadow="sm" py={0.25}>
       <DefaultNavbar
