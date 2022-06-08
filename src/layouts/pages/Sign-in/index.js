@@ -79,7 +79,7 @@ function SignIn() {
           ctx.setUserTypeId(loggedIn.userTypeId)
 
           ctx.login(loggedIn?.token)
-          navigate('/dashboard')
+          navigate('/presentation')
         }
         else {
           alert("log-in failed")
