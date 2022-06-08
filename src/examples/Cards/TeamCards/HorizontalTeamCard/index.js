@@ -24,10 +24,10 @@ import Grid from "@mui/material/Grid";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
-function HorizontalTeamCard({ image, name, position, description }) {
+function HorizontalTeamCard({ image, name, position, description ,city,email}) {
   return (
     <Card sx={{ mt: 3 }}>
-      <Grid container>
+      <Grid style={{backgroundColor:"#ECFFDC"}} borderRadius={"100"} height={"40vh"} container>
         <Grid item xs={12} md={6} lg={4} sx={{ mt: -6 }}>
           <MKBox width="100%" pt={2} pb={1} px={2}>
             <MKBox
@@ -40,14 +40,20 @@ function HorizontalTeamCard({ image, name, position, description }) {
             />
           </MKBox>
         </Grid>
-        <Grid item xs={12} md={6} lg={8} sx={{ my: "auto" }}>
+        <Grid   item xs={12} md={6} lg={8} sx={{ my: "auto" }}>
           <MKBox pt={{ xs: 1, lg: 2.5 }} pb={2.5} pr={4} pl={{ xs: 4, lg: 1 }} lineHeight={1}>
-            <MKTypography variant="h5">{name}</MKTypography>
+            <MKTypography variant="h5">Name: {name}</MKTypography>
             <MKTypography variant="h6" color={position.color} mb={1}>
-              {position.label}
+              User Type :{position.label}
             </MKTypography>
             <MKTypography variant="body2" color="text">
-              {description}
+             Phone : {description}
+            </MKTypography>
+            <MKTypography variant="body2" color="text">
+             Email : {email}
+            </MKTypography>
+            <MKTypography variant="body2" color="text">
+             City : {city}
             </MKTypography>
           </MKBox>
         </Grid>

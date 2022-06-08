@@ -70,8 +70,8 @@ function SignUp() {
 	const signup = () => {
         const userName=nameRef.current.querySelector('input[type=text]').value
         const userPhone=phoneRef.current.querySelector('input[type=text]').value
-		const userEmail = emailRef.current.querySelector('input[type=email]').value
-		const userPassword = passwordRef.current.querySelector('input[type=password]').value
+		    const userEmail = emailRef.current.querySelector('input[type=email]').value
+    		const userPassword = passwordRef.current.querySelector('input[type=password]').value
         const password_confirmation = password_confirmationRef.current.querySelector('input[type=password]').value
 
 		fetch(`${process.env.REACT_APP_API_URL}users`, {
@@ -79,8 +79,8 @@ function SignUp() {
 			body: JSON.stringify({
                 userName,
                 userPhone,
-				userEmail,
-				userPassword,
+				        userEmail,
+				        userPassword,
                 password_confirmation,
                 cityId:city,
                 userTypeId:userType
@@ -89,16 +89,16 @@ function SignUp() {
 				'Content-Type': 'application/json'
 			}
 		}).then(response => {
-			response.json().then(loggedIn => {
+			              response.json().then(loggedIn => {
                     console.log(loggedIn,"from signup")
                     if(loggedIn.success){
                     alert("sign-up successfully")
                     console.log(loggedIn,"looooged")
-					ctx.login(loggedIn?.token)
-					navigate('/Sign-in')
+					          ctx.login(loggedIn?.token)
+				          	navigate('/Sign-in')
                     }
                     else{
-                        alert("sign-up failed")  
+                    alert("sign-up failed")  
                     }
 				
 			})
@@ -110,7 +110,7 @@ function SignUp() {
 
     useEffect(() => {
         request(`${process.env.REACT_APP_API_URL}addresses/city?order=${order}`, {}, null, {
-          //auth: true,
+          auth: true,
         }, 'get')
           .then((city) => {
             console.log("cityData",city)
@@ -122,11 +122,11 @@ function SignUp() {
 
       useEffect(() => {
         request(`${process.env.REACT_APP_API_URL}users/userType/all`, {}, null, {
-          //auth: true,
+          auth: true,
         }, 'get')
           .then((user) => {
             console.log("userData",user)
-            setUserTypeData(user.data);
+            setUserTypeData(user?.data);
             
           });
     
