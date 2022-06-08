@@ -7,7 +7,7 @@ export const useRequest = () => {
     const appCtx = useContext(AppContext)
     const navigate = useNavigate()
     
-    const sendRequest = (url, headers, body, config = {}, method = 'GET') => {
+    const sendRequest = async (url, headers, body, config = {}, method = 'GET') => {
         let options = {
             headers: {},
             body: body
@@ -16,7 +16,7 @@ export const useRequest = () => {
 
         options.method = method
         if (config?.auth) {
-            options.headers.Authorization = 'Bearer ' + ctx.token
+            options.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token')
         }
         if (config.type === 'json') {
             options.headers['Content-Type'] = 'application/json'
@@ -25,8 +25,8 @@ export const useRequest = () => {
 
         options.headers = { ...options.headers, ...headers }
 
-        return fetch(url, options)
-            .then(response => {
+        return await fetch(url, options)
+            .then(async response => {
                 if (response.status == 401) {
                     navigate('/sign-in')
                     return

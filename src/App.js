@@ -46,8 +46,8 @@ export default function App() {
   const greenhand=nav[1]
   const routes=nav[0]
 
-  console.log("routessss",routes)
-  console.log("greenhand",greenhand)
+  // console.log("routessss",routes)
+  // console.log("greenhand",greenhand)
 
   const { pathname } = useLocation();
 	const appCtx = useContext(AppContext)
@@ -107,17 +107,7 @@ export default function App() {
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
       </MKBox>
-      <MKAlert
-                color={appCtx.snackbar.type}
-                icon={appCtx.snackbar.type == 'success' ? 'check' : 'warning'}
-                title="Green Hand App"
-                content={appCtx.snackbar.message}
-                open={appCtx.snackbar.open}
-                //  onClose={closeSnackBar}
-                close={appCtx.snackbar.closeSnackBar}
-                dateTime=""
-                bgWhite
-            />
+     
     </ThemeProvider>
   );
 }

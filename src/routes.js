@@ -55,6 +55,7 @@ import Icon from "@mui/material/Icon";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FarmDescription from 'layouts/pages/Farms/farmDescription'
 import InvestorDescription from 'layouts/pages/Investors/InvestorDescription'
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 // Pages
 import AboutUs from "layouts/pages/landing-pages/about-us";
@@ -63,12 +64,24 @@ import Author from "layouts/pages/landing-pages/author";
 import SignIn from "layouts/pages/Sign-in";
 // Sections
 
+//investor routes
+import Investors from "layouts/pages/Investors"
+import SignOut from "layouts/pages/sign-out/index";
+import UserProfile from "layouts/pages/Profile/Profile";
+import AddRequest from "layouts/pages/Investors/MyRequests/AddRequests";
+import EditRequest from "layouts/pages/Investors/MyRequests/EditRequest";
+import InvestorDeals from "layouts/pages/Investors/MyDeals/index";
+import InvestorAddDeal from "layouts/pages/Investors/MyDeals/AddDeal";
+import InvestorEditDeal from "layouts/pages/Investors/MyDeals/EditDeal";
+import Trash from 'layouts/pages/Investors/trash';
+
+
 import Farms from "layouts/pages/Farms"
 import Home from "layouts/pages/Home"
-import SignUp from "layouts/pages/Sign-up";
-import Investors from "layouts/pages/Investors"
+import SignUp from "layouts/pages/Sign-up/index";
 import {useContext} from "react"
 import { AuthContext } from "context/AuthContext";
+import Requests from 'layouts/pages/Investors/MyRequests';
 
 function MyRoutes (){
   const ctx=useContext(AuthContext)
@@ -171,6 +184,27 @@ function MyRoutes (){
 
 
   if(ctx.userTypeId==2){
+    routes.pop(
+      {
+        name: "Account",
+        icon: <Icon>dashboard</Icon>,
+    
+    
+        collapse: [
+          {
+            name: "Sign-In",
+            route: "/Sign-in",
+            component: <SignIn />,
+          },
+          {
+            name: "Sign-Up",
+            route: "/Sign-Up",
+            component: <SignUp />,
+          },
+          
+        ],
+      },
+    )
 routes.push({
   // name: "Account",
   icon: <Icon fontSize="small">account_circle</Icon>,
@@ -230,8 +264,92 @@ greenhand.push({
   route: "/farm/edit/:id",
   component: <EditFarm />,
 },)
+
+
   }else if(ctx.userTypeId==3){
-    routes.push()
+    routes.pop(
+      {
+        name: "Account",
+        icon: <Icon>dashboard</Icon>,
+    
+    
+        collapse: [
+          {
+            name: "Sign-In",
+            route: "/Sign-in",
+            component: <SignIn />,
+          },
+          {
+            name: "Sign-Up",
+            route: "/Sign-Up",
+            component: <SignUp />,
+          },
+          
+        ],
+      },
+    )
+    routes.push(
+      {
+        //name: "Accountttt",
+        icon: <AccountCircleOutlinedIcon/>,
+    
+    
+        collapse: [
+          {
+            name: "Profile",
+            route: "/profile",
+            component: <UserProfile />,
+          },
+          {
+            name: "My Requests",
+            route: "/my-requests",
+            component: <Requests />,
+          },
+          {
+            name: "My Deals",
+            route: "/my-deals",
+            component: <InvestorDeals />,
+          },
+          {
+            name: "My Trash",
+            route: "/my-trash",
+            component: <Trash />,
+          },
+          {
+            name: "Sign-out",
+            route: "/sign-out",
+            component: <SignOut />,
+          },
+          
+        ],
+      },
+    )
+    greenhand.push(
+      {
+        name: "requests/add",
+        icon: <GitHubIcon />,
+        route: "/requests/add/:id",
+        component: <AddRequest />,
+      },
+      {
+        name: "requests/edit",
+        icon: <GitHubIcon />,
+        route: "/requests/edit/:id",
+        component: <EditRequest />,
+      },
+      {
+        name: "deals/add",
+        icon: <GitHubIcon />,
+        route: "/deals/add/:id",
+        component: <InvestorAddDeal />,
+      },
+      {
+        name: "deal/edit",
+        icon: <GitHubIcon />,
+        route: "/deals/edit/:id",
+        component: <InvestorEditDeal />,
+      },
+    )
 
   }
   
