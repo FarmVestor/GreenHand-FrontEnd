@@ -8,16 +8,18 @@ import MKButton from "components/MKButton";
 import { AuthContext } from "context/AuthContext";
 import { useContext, useRef, useState, useEffect } from "react";
 // import MDSnackbar from "components/MDSnackbar";
-import { FormControl, NativeSelect } from "@mui/material";
+import { FormControl } from "@mui/material";
 import { FormLabel } from "@mui/material";
 import { RadioGroup } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
 import { Radio } from "@mui/material";
 import { Box } from "@mui/material";
+import { useParams } from "react-router-dom";
 import { useRequest } from "lib/functions";
+import { NativeSelect } from "@mui/material";
 
 import { Wrapper } from "@googlemaps/react-wrapper";
-function Map({ center, zoom, setLat, setLng }) {
+function Map({ center, zoom, prevState, updateFarm }) {
   const mapRef = useRef(null)
   const [map, setMap] = useState()
   useEffect(() => {
@@ -29,93 +31,73 @@ function Map({ center, zoom, setLat, setLng }) {
   useEffect(() => {
     if (map) {
       map.addListener("click", (mapsMouseEvent) => {
-        console.log(mapsMouseEvent)
         const coordinates = mapsMouseEvent.latLng.toJSON()
-        setLat(coordinates.lat)
-        setLng(coordinates.lng)
+        updateFarm({
+          ...prevState,
+          farmLatitude: coordinates.lat,
+          farmLongitude: coordinates.lng
+        })
       });
     }
   }, [map])
   return (<div ref={mapRef} style={{ height: '400px' }} />)
 }
-export default function AddFarm() {
-  const ctx = useContext(AuthContext);
+export default function EditFarm() {
   const request = useRequest()
-
+  const ctx = useContext(AuthContext);
+  const { id } = useParams()
   const [openSnakBar, setOpenSnakBar] = useState(false)
   const [serverResponce, setServerResponce] = useState('')
   const [snakBarColor, setSnakBarColor] = useState('success')
-  const [available, setAvailable] = useState(true);
-  const [visiable, setVisiable] = useState(true);
   const [farmKindData, setFarmKindData] = useState([])
-  const [farmKind, setfarmKind] = useState("")
   const [cropData, setCropData] = useState([])
-  const [crop, setCrop] = useState("")
   const [lastCropData, setLastCropData] = useState([])
-  const [lastCrop, setLastCrop] = useState("")
 
 
+  const [farmData, setFarmData] = useState({ userId: null, farmName: '', cityId: null, farmArea: 0, cropId: null, farmLicense: '', farmAvailable: 1, farmKindId: null, farmVisibiltiy: 1, farmWaterSalinity: 0, farmLastCropsId: 0, farmFertilizer: '', farmTreesAge: 0, farmDescription: '', farmLongitude: 40.5, farmLatitude: 28.5 })
   const closeSnakBar = () => setOpenSnakBar(false)
-  const userIdRef = useRef();
-  const farmNameRef = useRef();
-  const farmAreaRef = useRef();
-  const farmLicenseRef = useRef();
-  const farmWaterSalinityRef = useRef();
-  const farmFertilizerRef = useRef();
-  const farmTreesAgeRef = useRef();
-  const farmDescriptionRef = useRef();
-  const farmPictureRef = useRef();
-  const [longitude, setLongitude] = useState(28.5)
-  const [latitude, setLatitude] = useState(40.5)
-  const farmLatitudeRef = useRef(null)
-  const farmLongitudeRef = useRef(null)
 
-  const addFarm = () => {
-    const farmLatitude = farmLatitudeRef.current.querySelector("input[type=number]").value;
-    const farmLongitude = farmLongitudeRef.current.querySelector("input[type=number]").value;
-    const userId = userIdRef.current.querySelector("input[type=text]").value;
-    const farmName = farmNameRef.current.querySelector("input[type=text]").value;
-    const farmArea = farmAreaRef.current.querySelector("input[type=text]").value;
-    const farmLicense = farmLicenseRef.current.querySelector("input[type=text]").value;
-    const farmWaterSalinity = farmWaterSalinityRef.current.querySelector("input[type=text]").value;
-    const farmFertilizer = farmFertilizerRef.current.querySelector("input[type=text]").value;
-    const farmTreesAge = farmTreesAgeRef.current.querySelector("input[type=text]").value;
-    const farmDescription = farmDescriptionRef.current.querySelector("input[type=text]").value;
+  const farmPictureRef = useRef();
+
+  const editFarm = () => {
+    // console.log("farmData?.farmLongitude",farmData?.farmLongitude)
     const farmPicture = farmPictureRef.current.querySelector("input[type=file").files;
 
     const formdata = new FormData();
-    formdata.append("userId", userId);
-    formdata.append("farmName", farmName);
-    formdata.append("cityId", cityId);
-    formdata.append("farmArea", farmArea);
-    formdata.append("cropId", crop);
-    formdata.append("farmLicense", farmLicense);
-    formdata.append("farmAvailable", available);
-    formdata.append("farmKindId", farmKind);
-    formdata.append("farmVisibiltiy", visiable);
-    formdata.append("farmWaterSalinity", farmWaterSalinity);
-    formdata.append("farmLastCropsId", lastCrop);
-    formdata.append("farmFertilizer", farmFertilizer);
-    formdata.append("farmTreesAge", farmTreesAge);
-    formdata.append("farmDescription", farmDescription);
-    formdata.append("farmLatitude", farmLatitude);
-    formdata.append("farmLongitude", farmLongitude);
-
+    formdata.append("userId", farmData?.userId);
+    formdata.append("farmName", farmData?.farmName);
+    formdata.append("cityId", farmData?.cityId);
+    formdata.append("farmArea", farmData?.farmArea);
+    formdata.append("cropId", farmData?.cropId);
+    formdata.append("farmLicense", farmData?.farmLicense);
+    formdata.append("farmAvailable", farmData?.farmAvailable);
+    formdata.append("farmKindId", farmData?.farmKindId);
+    formdata.append("farmVisibiltiy", farmData?.farmVisibiltiy);
+    formdata.append("farmWaterSalinity", farmData?.farmWaterSalinity);
+    formdata.append("farmLastCropsId", farmData?.farmLastCropsId);
+    formdata.append("farmFertilizer", farmData?.farmFertilizer);
+    formdata.append("farmTreesAge", farmData?.farmTreesAge);
+    formdata.append("farmDescription", farmData?.farmDescription);
     formdata.append("farmPicture", farmPicture[0]);
-
-
-    fetch(`${process.env.REACT_APP_API_URL}farms`, {
-      method: "POST",
+    formdata.append("farmLatitude", farmData?.farmLatitude);
+    formdata.append("farmLongitude", farmData?.farmLongitude);
+    // request(`${process.env.REACT_APP_API_URL}farms/${id}`,{},{
+    //   body:formdata
+    // },{
+    //   auth: true,
+    //   snackbar: true,
+    // },"put")
+    fetch(`${process.env.REACT_APP_API_URL}farms/${id}`, {
+      method: "put",
       body: formdata,
       headers: {
         Authorization: "bearer " + ctx.token,
       },
-
     }).then(responce => {
-      responce.json().then(farmAdded => {
-        console.log(farmAdded)
-        setServerResponce(farmAdded.messages.join(' '))
-        if (farmAdded.success) {
+      responce.json().then(farmedited => {
+        // console.log(farmedited)
+        setServerResponce(farmedited.messages.join(' '))
+        if (farmedited.success) {
           setSnakBarColor('success')
         }
         else {
@@ -128,17 +110,6 @@ export default function AddFarm() {
   };
 
 
-  useEffect(() => {
-    request(`${process.env.REACT_APP_API_URL}farms/farmKinds/all`, {}, null, {
-      auth: true,
-    }, 'get')
-      .then((farmkinds) => {
-        console.log("farmkinds", farmkinds)
-
-        setFarmKindData(farmkinds?.data);
-      });
-
-  }, []);
 
   //get countries
   const [countriesData, setCountriesData] = useState([])
@@ -155,7 +126,7 @@ export default function AddFarm() {
   const [governratesData, setGovernratesData] = useState([])
   const handleCountryIdChange = (e) => {
     const country = countriesData.filter((country) => country.id == e.target.value)
-    console.log("country", country)
+    // console.log("country", country)
     setGovernratesData(country[0]?.Governrates)
   }
 
@@ -164,15 +135,41 @@ export default function AddFarm() {
   const [cityId, setCityId] = useState(0)
   const handleGovernratedChange = (e) => {
     const governrate = governratesData.filter((governrate) => governrate.id == e.target.value)
-    console.log("governrate", governrate)
+    // console.log("governrate", governrate)
     setCitiesData(governrate[0]?.Cities)
   }
   const handleCitiesChange = (e) => {
     const city = citiesData.filter((city) => city.id == e.target.value)
-    setLatitude(city.latitude)
-    setLongitude(city.longitude)
-    setCityId(e.target.value);
+    //  setLongitude(city.longitude)
+    //  setLatitude(city.latitude)
+    updateFarmData({ farmLongitude: city.longitude })
+    updateFarmData({ farmLatitude: city.latitude })
+    updateFarmData({ cityId: e.target.value })
   }
+
+  useEffect(() => {
+    request(`${process.env.REACT_APP_API_URL}farms/farmKinds/all`, {}, null, {
+      auth: true,
+    }, 'get')
+      .then((farmkinds) => {
+        // console.log("farmkindsData",farmkinds)
+
+        setFarmKindData(farmkinds?.data);
+      });
+
+  }, []);
+
+  // useEffect(() => {
+  //   request(`${process.env.REACT_APP_API_URL}addresses/city`, {}, null, {
+  //     auth: true,
+  //   }, 'get')
+  //     .then((city) => {
+  //       console.log("cityData",city )
+  //       setCityData(city?.data);
+
+  //     });
+
+  // }, []);
 
 
   useEffect(() => {
@@ -180,34 +177,34 @@ export default function AddFarm() {
       auth: true,
     }, 'get')
       .then((crop) => {
-        console.log("cropsData", crop)
         setCropData(crop?.data);
         setLastCropData(crop?.data);
-
+        // console.log(crop )
       });
 
   }, []);
 
-  const handleAvaliableChange = (event) => {
-    setAvailable(event.target.value);
-    console.log( "available",available)
-  };
-  const handleVisiableChange = (event) => {
-    setVisiable(event.target.value);
-    console.log( "visiable",visiable)
-  };
-  const handleFarmKindChange = (event) => {
-    setfarmKind(event.target.value);
-  };
-  
-  const handleCropChange = (event) => {
-    setCrop(event.target.value);
-  };
-  const handleLastCropChange = (event) => {
-    setLastCrop(event.target.value);
-  };
+  useEffect(() => {
+    request(`${process.env.REACT_APP_API_URL}farms/${id}`, {}, null, {
+      auth: true,
+    }, 'get')
+
+      .then(farms => {
+        setFarmData(farms?.data)
+        // console.log(farms.data+"---------from farm------------")
+      })
+
+  }, [])
+  const updateFarmData = (obj) => {
+    setFarmData({
+      ...farmData,
+      ...obj
+    })
+  }
+
 
   return (
+   
       <MKBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
@@ -218,16 +215,18 @@ export default function AddFarm() {
                   <MKBox mb={2}>
                     <MKInput
                       type="text"
-                      ref={userIdRef}
                       label="farmer Id"
                       variant="standard"
+                      value={farmData?.userId}
+                      onChange={(e) => { updateFarmData({ userId: e.target.value }) }}
                       fullWidth
                     />
                   </MKBox>
                   <MKBox mb={2}>
                     <MKInput
                       type="text"
-                      ref={farmNameRef}
+                      value={farmData?.farmName}
+                      onChange={(e) => { updateFarmData({ farmName: e.target.value }) }}
                       label="farm Name"
                       variant="standard"
                       fullWidth
@@ -236,8 +235,9 @@ export default function AddFarm() {
 
                   <MKBox mb={2}>
                     <MKInput
+                      value={farmData?.farmArea}
+                      onChange={(e) => { updateFarmData({ farmArea: e.target.value }) }}
                       type="text"
-                      ref={farmAreaRef}
                       label="farm Area"
                       variant="standard"
                       fullWidth
@@ -246,8 +246,9 @@ export default function AddFarm() {
 
                   <MKBox mb={2}>
                     <MKInput
+                      value={farmData?.farmLicense}
+                      onChange={(e) => { updateFarmData({ farmLicense: e.target.value }) }}
                       type="text"
-                      ref={farmLicenseRef}
                       label="farm License"
                       variant="standard"
                       fullWidth
@@ -256,9 +257,10 @@ export default function AddFarm() {
 
                   <MKBox mb={2}>
                     <MKInput
+                      value={farmData?.farmWaterSalinity}
+                      onChange={(e) => { updateFarmData({ farmWaterSalinity: e.target.value }) }}
                       type="text"
-                      ref={farmWaterSalinityRef}
-                      label="farm WaterSalinity"
+                      label="WaterSalinity"
                       variant="standard"
                       fullWidth
                     />
@@ -266,8 +268,9 @@ export default function AddFarm() {
 
                   <MKBox mb={2}>
                     <MKInput
+                      value={farmData?.farmFertilizer}
+                      onChange={(e) => { updateFarmData({ farmFertilizer: e.target.value }) }}
                       type="text"
-                      ref={farmFertilizerRef}
                       label="farm Fertilizer"
                       variant="standard"
                       fullWidth
@@ -276,7 +279,8 @@ export default function AddFarm() {
                   <MKBox mb={2}>
                     <MKInput
                       type="text"
-                      ref={farmTreesAgeRef}
+                      value={farmData?.farmTreesAge}
+                      onChange={(e) => { updateFarmData({ farmTreesAge: e.target.value }) }}
                       label="farm TreesAge"
                       variant="standard"
                       fullWidth
@@ -285,7 +289,8 @@ export default function AddFarm() {
                   <MKBox mb={2}>
                     <MKInput
                       type="text"
-                      ref={farmDescriptionRef}
+                      value={farmData?.farmDescription}
+                      onChange={(e) => { updateFarmData({ farmDescription: e.target.value }) }}
                       label="farm Description"
                       variant="standard"
                       fullWidth
@@ -293,63 +298,36 @@ export default function AddFarm() {
                   </MKBox>
                   <MKBox mb={2}>
                     <FormControl>
-                      <FormLabel id="demo-row-radio-buttons-group-label">farm Available</FormLabel>
-                      <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" onChange={handleAvaliableChange} >
-                        <FormControlLabel value={true} control={<Radio />} label="Available" />
-                        <FormControlLabel value={false} control={<Radio />} label="Not Available" />
+                      <FormLabel id="farm-available">farm Availablility</FormLabel>
+                      <RadioGroup value={farmData?.farmAvailable} row aria-labelledby="farm-available" name="row-radio-buttons-group" onChange={(e) => { updateFarmData({ farmAvailable: e.target.value }) }} >
+                        <FormControlLabel value={1} control={<Radio />} label="Available" />
+                        <FormControlLabel value={0} control={<Radio />} label="Not Available" />
                       </RadioGroup>
                     </FormControl>
                   </MKBox>
                   <MKBox mb={2}>
                     <FormControl>
-                      <FormLabel id="demo-row-radio-buttons-group-label">farm Visiable</FormLabel>
-                      <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" onChange={handleVisiableChange} >
-                        <FormControlLabel value={true} control={<Radio />} label="Visiable" />
-                        <FormControlLabel value={false} control={<Radio />} label="Not Visiable" />
+                      <FormLabel id="farm-visibility">farm Visiable</FormLabel>
+                      <RadioGroup value={farmData?.farmVisibiltiy} row aria-labelledby="farm-visibility" name="row-radio-buttons-group" onChange={(e) => { updateFarmData({ farmVisibiltiy: e.target.value }) }} >
+                        <FormControlLabel value={1} control={<Radio />} label="Visiable" />
+                        <FormControlLabel value={0} control={<Radio />} label="Not Visiable" />
                       </RadioGroup>
                     </FormControl>
                   </MKBox>
+
                   <MKBox mb={2}>
                     <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">
+                        <InputLabel id="crops">
                           Crops
                         </InputLabel>
                         <NativeSelect
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={crop}
+                          labelid="crops"
+                          id="crop"
+                          value={farmData?.cropId}
                           label="Crops"
-                          defaultValue="1"
-                          onChange={handleCropChange}
+                          onChange={(e) => { updateFarmData({ cropId: e.target.value }) }}
                         >
-                          <option></option>
-                          {lastCropData?.map((crop, i) => {
-                            return (
-                              <option value={crop.id} key={i}>
-                                {crop.cropName}
-                              </option>
-                            );
-                          })}
-                        </NativeSelect>
-                      </FormControl>
-                    </Box>
-                  </MKBox>
-                  <MKBox mb={2}>
-                    <Box sx={{ minWidth: 120 }}>
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">
-                          Farm Last Crops
-                        </InputLabel>
-                        <NativeSelect
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={lastCrop}
-                          label="Crops"
-                          defaultValue="1"
-                          onChange={handleLastCropChange}
-                        >
-                          <option></option>
                           {cropData?.map((crop, i) => {
                             return (
                               <option value={crop.id} key={i}>
@@ -364,18 +342,40 @@ export default function AddFarm() {
                   <MKBox mb={2}>
                     <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">
+                        <InputLabel id="lastCrop">
+                          Farm Last Crops
+                        </InputLabel>
+                        <NativeSelect
+                          labelid="lastCrop"
+                          id="lastcrop"
+                          value={farmData?.farmLastCropsId}
+                          label="Crops"
+                          onChange={(e) => { updateFarmData({ farmLastCropsId: e.target.value }) }}
+                        >
+                          {lastCropData?.map((crop, i) => {
+                            return (
+                              <option value={crop.id} key={i}>
+                                {crop.cropName}
+                              </option>
+                            );
+                          })}
+                        </NativeSelect>
+                      </FormControl>
+                    </Box>
+                  </MKBox>
+                  <MKBox mb={2}>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="farmkinds">
                           Farm Kind
                         </InputLabel>
                         <NativeSelect
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={farmKind}
+                          labelid="farmkinds"
+                          id="farmkind"
+                          value={farmData?.farmKindId}
                           label="FarmKind"
-                          defaultValue="1"
-                          onChange={handleFarmKindChange}
+                          onChange={(e) => { updateFarmData({ farmKindId: e.target.value }) }}
                         >
-                          <option></option>
                           {farmKindData?.map((farmkind, i) => {
                             return (
                               <option value={farmkind.id} key={i}>
@@ -387,6 +387,7 @@ export default function AddFarm() {
                       </FormControl>
                     </Box>
                   </MKBox>
+                  {farmData?.farmPicture && <img src={farmData?.farmPicture} width={80} />}
                   <MKBox mb={2}>
                     <MKInput
                       ref={farmPictureRef}
@@ -395,19 +396,18 @@ export default function AddFarm() {
                       fullWidth
                     />
                   </MKBox>
-                  
                   <MKBox component="form" role="form">
 
                     <FormControl fullWidth>
-                      <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                      <InputLabel variant="standard" htmlFor="country">
                         Country
                       </InputLabel>
                       <NativeSelect
-
-                        defaultValue={1}
+                        value=""
+                        
                         inputProps={{
                           name: 'country',
-                          id: 'uncontrolled-native',
+                          id: 'country',
                         }}
                         onChange={handleCountryIdChange}
                       >
@@ -422,15 +422,15 @@ export default function AddFarm() {
                   <MKBox component="form" role="form">
 
                     <FormControl fullWidth>
-                      <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                      <InputLabel variant="standard" htmlFor="gov">
                         Governrate
                       </InputLabel>
                       <NativeSelect
 
-
+                        value=""
                         inputProps={{
                           name: 'governrate',
-                          id: 'uncontrolled-native',
+                          id: 'gov',
                         }}
                         onChange={handleGovernratedChange}
 
@@ -447,14 +447,14 @@ export default function AddFarm() {
                   <MKBox component="form" role="form">
 
                     <FormControl fullWidth>
-                      <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                      <InputLabel variant="standard" htmlFor="city">
                         Cities
                       </InputLabel>
                       <NativeSelect
-
+                        value=""
                         inputProps={{
                           name: 'governrate',
-                          id: 'uncontrolled-native',
+                          id: 'city',
                         }}
                         onChange={handleCitiesChange}
 
@@ -470,8 +470,8 @@ export default function AddFarm() {
                   <MKBox mb={2}>
                     <MKInput
                       type="number"
-                      value={latitude}
-                      ref={farmLatitudeRef}
+                      value={farmData?.farmLongitude}
+                      onChange={(e) => { updateFarmData({ farmLatitude: e.target.value }) }}
                       label="farm Latitude"
                       variant="standard"
                       fullWidth
@@ -480,8 +480,8 @@ export default function AddFarm() {
                   <MKBox mb={2}>
                     <MKInput
                       type="number"
-                      value={longitude}
-                      ref={farmLongitudeRef}
+                      value={farmData?.farmLongitude}
+                      onChange={(e) => { updateFarmData({ farmLongitude: e.target.value }) }}
                       label="farm Longitude"
                       variant="standard"
                       fullWidth
@@ -489,7 +489,7 @@ export default function AddFarm() {
                   </MKBox>
                   <MKBox mb={2}>
                     <Wrapper apiKey={''} >
-                      <Map center={{ lat: latitude, lng: longitude }} setLat={setLatitude} setLng={setLongitude} zoom={8} />
+                      <Map center={{ lat: farmData.farmLatitude, lng: farmData.farmLongitude }} updateFarm={setFarmData} prevState={setFarmData} zoom={8} />
                     </Wrapper>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
@@ -497,9 +497,9 @@ export default function AddFarm() {
                       variant="gradient"
                       color="info"
                       fullWidth
-                      onClick={addFarm}
+                      onClick={editFarm}
                     >
-                      Add 
+                      Save Farm
                     </MKButton>
                   </MKBox>
                 </MKBox>
@@ -508,16 +508,6 @@ export default function AddFarm() {
           </Grid>
         </Grid>
       </MKBox>
-    //   <MDSnackbar
-    //     color={snakBarColor}
-    //     icon={snakBarColor == "success" ? 'check' : 'warning'}
-    //     title="Place App"
-    //     content={serverResponce}
-    //     open={openSnakBar}
-    //     dateTime=""
-    //     onClose={closeSnakBar}
-    //     close={closeSnakBar}
-    //     bgWhite
-    //   />
+   
   );
 }

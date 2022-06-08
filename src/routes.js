@@ -40,13 +40,13 @@ import { AccessAlarm, Add, ThreeDRotation } from '@mui/icons-material';
 
 
 
-import Farmers from "layouts/pages/Farmers"
-import Deals from "layouts/pages/Deals"
-import AddDeal from "layouts/pages/Deals/AddDeal"
-import EditDeal from "layouts/pages/Deals/EditDeal"
-import AddFarm from "layouts/pages/Farmers/AddFarm"
-import EditFarm from "layouts/pages/Farmers/EditFarm"
-import Trush from "layouts/pages/Trush"
+import Farmers from "layouts/pages/Farmers/MyFarms/index"
+import Deals from "layouts/pages/Farmers/MyDeals/index"
+import AddDeal from "layouts/pages/Farmers/MyDeals/AddDeal"
+import EditDeal from "layouts/pages/Farmers/MyDeals/EditDeal"
+import AddFarm from "layouts/pages/Farmers/MyFarms/AddFarm"
+import EditFarm from "layouts/pages/Farmers/MyFarms/EditFarm"
+import Trush from "layouts/pages/Farmers/MyTrash"
 
 // @mui material components
 import Icon from "@mui/material/Icon";

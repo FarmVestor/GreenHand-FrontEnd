@@ -23,7 +23,9 @@ import TransparentBlogCard from "examples/Cards/BlogCards/TransparentBlogCard";
 import BackgroundBlogCard from "examples/Cards/BlogCards/BackgroundBlogCard";
 
 import Card from "@mui/material/Card";
-import { useRequest } from "../../../lib/functions";
+import { useRequest } from "../../../../lib/functions";
+// import { AuthContext } from "context/AuthContext";
+
 
 import { useEffect, useState, useContext } from "react";
 
@@ -32,17 +34,35 @@ export default function Farmers() {
 
   const request = useRequest()
   const [farmsData, setFarmsData] = useState([])
+  // const ctx = useContext(AuthContext)
 
-  const id = 1
+  const deleteFarm = (farmId) => {
+    if (window.confirm('Are you sure')) {
+        request(`${process.env.REACT_APP_API_URL}farms/${farmId}?deleted=${1}`, {}, {}, {
+            auth: true,
+            snackbar: true
+        }, 'delete').then(data => {
+            console.log("data",data?.messages)
+            const updatedRows=farmsData.filter((farmsData)=>farmsData.id != farmId)
+            setFarmsData(updatedRows)
+        })
+    }
+
+}
+
+  // const id = 1
   useEffect(() => {
-    request(`${process.env.REACT_APP_API_URL}farms?userId=${id}`, {}, null, {
-      // auth: true,
-    }, 'get')
-      .then(farms => {
-        setFarmsData(farms?.data)
-        // console.log("farms of user 9", farms)
+    let fetchFarm = async () => {
+      await request(`${process.env.REACT_APP_API_URL}farms`, {}, null, {
+        auth: true,
+      }, 'get')
+        .then(farms => {
+          setFarmsData(farms?.data)
+          console.log("farms of user 9", farms)
 
-      })
+        })
+    }
+    fetchFarm()
   }, [])
 
   return (
@@ -50,15 +70,15 @@ export default function Farmers() {
       <MKBox component="section" py={6} my={6}>
         <Container>
           <Grid container item xs={19} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
-        
+
             <MKBox bgColor="white">
-            <Link to='/farm/add'>
-                                    <MKButton variant="text">
-                                        <Icon fontSize="large"
+              <Link to='/farm/add'>
+                <MKButton variant="text">
+                  <Icon fontSize="large"
                     sx={{ color: green[500] }}>add_circle</Icon>&nbsp;Add
-                                    </MKButton>
-                                </Link>
-            {/* <Link to='/farm/add'>
+                </MKButton>
+              </Link>
+              {/* <Link to='/farm/add'>
                 <Icon
                     baseClassName="fas"
                     className="fa-plus-circle"
@@ -70,7 +90,7 @@ export default function Farmers() {
                     />
             </Link> */}
               <Card
-              
+
                 sx={{
                   p: 2,
                   mx: { xs: 2, lg: 3 },
@@ -80,38 +100,46 @@ export default function Farmers() {
                   backdropFilter: "saturate(200%) blur(30px)",
                   boxShadow: ({ boxShadows: { xxl } }) => xxl,
                 }}
-               
-              > 
-             
+
+              >
+
                 <Grid container spacing={3}>
                   {farmsData?.map((farm, i) => {
                     return (
                       <Grid item xs={12} sm={6} lg={3}>
                         <Link to={`/farms/description/${farm.id}`}>
-                        <TransparentBlogCard
-                          image={farm.farmPicture}
-                          description={farm.farmName}
-                          title={farm.FarmKind?.farmKind}
-                          action={{
-                            type: "internal",
-                            route: `/farms/description/${farm.id}`,
-                            color: "info",
-                            label: "read more",
-                          }}
-                        />
-                         <Link to={`/farm/edit/${farm.id}`}>
-                        <Icon  fontSize="small" sx={{ color: green[300] }}>modeEdit</Icon>
-                        </Link>
-                         <Icon  fontSize="small" sx={{ color: green[300] }}>delete</Icon>
-                        </Link>
+                          <TransparentBlogCard
+                            image={farm.farmPicture}
+                            description={farm.farmName}
+                            title={farm.FarmKind?.farmKind}
+                            action={{
+                              type: "internal",
+                              route: `/farms/description/${farm.id}`,
+                              color: "info",
+                              label: "read more",
+                            }}
+                          />
+                          </Link>
+                          <Link to={`/farm/edit/${farm.id}`}>
+                            <Icon fontSize="small" sx={{ color: green[300] }}>modeEdit</Icon>
+                          </Link>
+
+                          <Icon fontSize="small" sx={{ color: green[300] }} 
+                          onClick={()=>{
+                            deleteFarm(farm.id)}
+                          }
+                          >delete</Icon>
+
+
+                        
                       </Grid>
-                      
-                      
+
+
                     )
                   })}
 
                 </Grid>
-               
+
               </Card>
 
             </MKBox>

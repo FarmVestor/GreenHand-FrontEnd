@@ -16,7 +16,7 @@ export const useRequest = () => {
 
         options.method = method
         if (config?.auth) {
-            options.headers.Authorization = 'Bearer ' + ctx.token
+            options.headers.Authorization = 'Bearer ' + window.localStorage.getItem("token")
         }
         if (config.type === 'json') {
             options.headers['Content-Type'] = 'application/json'

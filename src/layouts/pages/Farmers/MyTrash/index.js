@@ -62,6 +62,8 @@ export default function Trush() {
 
             }, 'delete').then(data => {
                 console.log(data.messages)
+                const updatedRows=rows.filter((row)=>row.id != dealId)
+                setRows(updatedRows)
             })
         }
 
@@ -69,9 +71,10 @@ export default function Trush() {
 
     useEffect(() => {
         request(`${process.env.REACT_APP_API_URL}deals?id=${id}&deleted=${1}`, {}, null, {
-            // auth:true
+            auth:true
         }, 'get')
             .then(deals => {
+                
                 // setDealsData(deals?.data)
                 // console.log("dddddd", deals)
                 const alldeals = deals?.data?.map((deal) => {
@@ -128,6 +131,9 @@ export default function Trush() {
             }, 'delete')
             .then(deleted=>{
                 console.log("rrrrrrr",deleted)
+                const updatedRows=farmRows.filter((farmRows)=>farmRows.id != farmId)
+                setFarmRows(updatedRows)
+                
             })
         }
     }
@@ -136,7 +142,7 @@ export default function Trush() {
     const fid = 9
     useEffect(() => {
       request(`${process.env.REACT_APP_API_URL}farms?userId=${fid}&deleted=${1}`, {}, null, {
-        // auth: true,
+        auth: true,
       }, 'get')
         .then(farms => {
 

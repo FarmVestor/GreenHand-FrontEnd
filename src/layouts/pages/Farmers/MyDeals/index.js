@@ -19,6 +19,8 @@ import { useEffect, useState, useContext } from "react";
 
 import CheckIcon from '@mui/icons-material/Check';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
+import { AuthContext } from "context/AuthContext";
+
 
 
 export default function Deals() {
@@ -57,7 +59,7 @@ export default function Deals() {
         },]
     const request = useRequest()
     // const [dealsData, setDealsData] = useState([])
-    const id = 1
+    // const id = 1
 
     const [rows, setRows] = useState([])
     const deleteDeal = (dealId) => {
@@ -68,21 +70,22 @@ export default function Deals() {
 
             }, 'delete').then(data => {
                 console.log(data.messages)
+                const updatedRows=rows.filter((row)=>row.id != dealId)
+                setRows(updatedRows)
             })
         }
 
     }
 
     useEffect(() => {
-        request(`${process.env.REACT_APP_API_URL}deals?id=${id}`, {}, null, {
-            // auth:true
+        let fetchDeal = async () => {
+        await request(`${process.env.REACT_APP_API_URL}deals`, {}, null, {
+            auth:true
         }, 'get')
             .then(deals => {
                 // setDealsData(deals?.data)
                 // console.log("dddddd", deals)
                 const alldeals = deals?.data?.map((deal) => {
-              
-
                     return {
                         id: deal.id, 
                         farmName: deal.Farm?.farmName,
@@ -95,8 +98,12 @@ export default function Deals() {
                     }
                 })
                 setRows(alldeals)
+                
 
             })
+        }
+            fetchDeal()
+
     }, [])
 
     return (
