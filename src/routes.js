@@ -50,11 +50,15 @@ import Trush from "layouts/pages/Trush"
 
 // @mui material components
 import Icon from "@mui/material/Icon";
-
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import LoginIcon from '@mui/icons-material/Login';
 // @mui icons
 import GitHubIcon from "@mui/icons-material/GitHub";
-import FarmDescription from 'layouts/pages/Farms/farmDescription'
-import InvestorDescription from 'layouts/pages/Investors/InvestorDescription'
+import FarmDescription from 'layouts/pages/Landing/AllFarms/farmDescription'
+import InvestorDescription from 'layouts/pages/Landing/AllInvestors/InvestorDescription'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 // Pages
@@ -65,7 +69,7 @@ import SignIn from "layouts/pages/Sign-in";
 // Sections
 
 //investor routes
-import Investors from "layouts/pages/Investors"
+import Investors from "layouts/pages/Landing/AllInvestors"
 import SignOut from "layouts/pages/sign-out/index";
 import UserProfile from "layouts/pages/Profile/Profile";
 import AddRequest from "layouts/pages/Investors/MyRequests/AddRequests";
@@ -76,7 +80,7 @@ import InvestorEditDeal from "layouts/pages/Investors/MyDeals/EditDeal";
 import Trash from 'layouts/pages/Investors/trash';
 
 
-import Farms from "layouts/pages/Farms"
+import Farms from "layouts/pages/Landing/AllFarms/index"
 import Home from "layouts/pages/Home"
 import SignUp from "layouts/pages/Sign-up/index";
 import {useContext} from "react"
@@ -89,13 +93,13 @@ function MyRoutes (){
   const routes = [
     {
       name: "Home",
-      icon: <GitHubIcon />,
+      icon: <HomeIcon />,
       route: "/presentation",
       component: <Home />,
     },
     {
       name: "Find",
-      icon: <Icon>dashboard</Icon>,
+      icon: <SearchIcon/>,
   
   
       collapse: [
@@ -116,40 +120,23 @@ function MyRoutes (){
         },
       ],
     },
-    {
-      name: "About",
-      icon: <Icon>dashboard</Icon>,
-  
-  
-      collapse: [
-        {
-          name: "About us",
-          route: "/pages/landing-pages/about-us",
-          component: <AboutUs />,
-        },
-        {
-          name: "Contact",
-          route: "/pages/landing-pages/contact-us",
-          component: <ContactUs />,
-        },
-      
-      ],
-    },
+    
     {
       name: "Guide",
-      icon: <GitHubIcon />,
+      icon: <MenuBookIcon />,
       route: "/presentation",
       component: <Home />,
     },
     {
       name: "Account",
-      icon: <Icon>dashboard</Icon>,
+      icon: <GroupAddIcon/>,
   
   
       collapse: [
         {
           name: "Sign-In",
           route: "/Sign-in",
+          icon:<LoginIcon/>,
           component: <SignIn />,
         },
         {
@@ -183,7 +170,7 @@ function MyRoutes (){
 
 
 
-  if(ctx.userTypeId==2){
+  if(window.localStorage.getItem("userTypeId")==2){
     routes.pop(
       {
         name: "Account",
@@ -266,7 +253,7 @@ greenhand.push({
 },)
 
 
-  }else if(ctx.userTypeId==3){
+  }else if(window.localStorage.getItem("userTypeId")==3){
     routes.pop(
       {
         name: "Account",

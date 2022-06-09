@@ -15,13 +15,17 @@ Coded by www.creative-tim.com
 */
 
 import { Fragment, useState, useEffect } from "react";
+import Avatar from '@mui/material/Avatar';
+import * as React from 'react';
+import { deepOrange, green } from '@mui/material/colors';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 // react-router components
 import { Link } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
-
+import logo from "../../../../src/assets/images/logo8.png"
 // @mui material components
 import Container from "@mui/material/Container";
 import Icon from "@mui/material/Icon";
@@ -43,7 +47,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 // Material Kit 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
-function DefaultNavbar({ brand, routes, transparent, light, action, sticky, relative, center }) {
+function DefaultNavbar({ brand, routes, transparent, light, action, sticky, relative, center ,image }) {
   const [dropdown, setDropdown] = useState("");
   const [dropdownEl, setDropdownEl] = useState("");
   const [dropdownName, setDropdownName] = useState("");
@@ -67,6 +71,8 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
         setMobileNavbar(false);
       }
     }
+
+    
 
     /** 
      The event listener that's calling the displayMobileNavbar function when 
@@ -476,9 +482,11 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
             py={transparent ? 1.5 : 0.75}
             pl={relative || transparent ? 0 : { xs: 0, lg: 1 }}
           >
-            <MKTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"}>
-              {brand}
-            </MKTypography>
+         
+              <Avatar src={image} sx={{ bgcolor: green[500] }} variant="rounded">
+               
+              </Avatar>
+           
           </MKBox>
           <MKBox
             color="inherit"
@@ -513,23 +521,25 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
       {dropdownMenu}
       {nestedDropdownMenu}
     </Container>
+    
   );
 }
 
 // Setting default values for the props of DefaultNavbar
 DefaultNavbar.defaultProps = {
-  brand: "logo",
+  brand: "",
   transparent: false,
   light: false,
   action: false,
   sticky: false,
   relative: false,
   center: false,
+  image:logo
 };
 
 // Typechecking props for the DefaultNavbar
 DefaultNavbar.propTypes = {
-  brand: PropTypes.string,
+  // brand: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
   transparent: PropTypes.bool,
   light: PropTypes.bool,
@@ -556,6 +566,8 @@ DefaultNavbar.propTypes = {
   sticky: PropTypes.bool,
   relative: PropTypes.bool,
   center: PropTypes.bool,
+  image: PropTypes.string.isRequired,
+
 };
 
 export default DefaultNavbar;

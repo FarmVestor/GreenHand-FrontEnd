@@ -10,7 +10,7 @@ function SignOut() {
         window.localStorage.removeItem("userTypeId")
         window.localStorage.removeItem("userId")
         ctx.logout()
-        navigate('/sign-in')
+        navigate('/Sign-in')
     }, [])
     return <></>
 }

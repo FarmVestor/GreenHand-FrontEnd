@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import TransparentBlogCard from "examples/Cards/BlogCards/TransparentBlogCard";
 
 import Card from "@mui/material/Card";
-import { useRequest } from "../../../lib/functions";
+import { useRequest } from "../../../../lib/functions";
 
 import { useEffect, useState} from "react";
 
