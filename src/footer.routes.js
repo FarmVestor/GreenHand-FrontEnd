@@ -8,33 +8,18 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import MKTypography from "components/MKTypography";
 
 // Images
-import logoCT from "assets/images/logo-ct-dark.png";
+import logoCT from "assets/images/logo7.png";
 
 const date = new Date().getFullYear();
 
 export default {
   brand: {
-    name: "GreenHand",
+    
     image: logoCT,
     route: "/",
   },
   socials: [
-    {
-      icon: <FacebookIcon />,
-      link: "https://www.facebook.com/",
-    },
-    {
-      icon: <TwitterIcon />,
-      link: "https://twitter.com",
-    },
-    {
-      icon: <GitHubIcon />,
-      link: "https://github.com",
-    },
-    {
-      icon: <YouTubeIcon />,
-      link: "https://www.youtube.com",
-    },
+   
   ],
   menus: [
     {
@@ -69,10 +54,5 @@ export default {
        
       ],
     },
-  ],
-  copyright: (
-    <MKTypography variant="button" fontWeight="regular">
-      All rights reserved. Copyright &copy; {date} GreenHand.
-    </MKTypography>
-  ),
+  ]
 };

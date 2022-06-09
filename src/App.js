@@ -40,7 +40,6 @@ import { AppContext } from "context/AppContext";
 import { AuthContext } from "context/AuthContext";
 import MKAlert from "components/MKAlert";
 
-
 export default function App() {
   const nav=MyRoutes()
   const greenhand=nav[1]
@@ -97,6 +96,7 @@ export default function App() {
           color: "info",
         }}
         sticky
+        
       />
       <Routes>
         {getRoutes(routes)}

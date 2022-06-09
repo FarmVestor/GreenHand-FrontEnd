@@ -41,7 +41,7 @@ import SimpleFooter from "examples/Footers/SimpleFooter";
 import MyRoutes from "routes";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/farmbackground4.jpeg";
 
 function SignIn() {
 
@@ -131,16 +131,16 @@ function SignIn() {
             <Card>
               <MKBox
                 variant="gradient"
-                bgColor="info"
+                style={{backgroundColor:"#ECFFDC"}}
                 borderRadius="lg"
-                coloredShadow="info"
+                coloredShadow="success"
                 mx={2}
                 mt={-3}
                 p={2}
                 mb={1}
                 textAlign="center"
               >
-                <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
+                <MKTypography variant="h4" fontWeight="medium" color="black" mt={1}>
                   Sign in
                 </MKTypography>
                
@@ -166,7 +166,7 @@ function SignIn() {
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info" onClick={login} fullWidth>
+                    <MKButton variant="gradient" color="success" onClick={login} fullWidth>
                       sign in
                     </MKButton>
                   </MKBox>
@@ -177,7 +177,7 @@ function SignIn() {
                         component={Link}
                         to="/Sign-up"
                         variant="button"
-                        color="info"
+                        color="success"
                         fontWeight="medium"
                         textGradient
                       >

@@ -41,7 +41,7 @@ export default function InvestorDescription() {
     const { id } = useParams()
 
     useEffect(() => {
-        request(`${process.env.REACT_APP_API_URL}users/${id}`, {}, null, {
+        request(`${process.env.REACT_APP_API_URL}users/show/${id}`, {}, null, {
             // auth: true,
         }, 'get')
             .then(investor => {

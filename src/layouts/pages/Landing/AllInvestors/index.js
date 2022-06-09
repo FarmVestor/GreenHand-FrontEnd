@@ -42,7 +42,7 @@ export default function Investors() {
   const id = 3
 
   useEffect(() => {
-    request(`${process.env.REACT_APP_API_URL}users?id=${id}`, {}, null, {
+    request(`${process.env.REACT_APP_API_URL}users/all`, {}, null, {
     }, 'get')
       .then(invisitors => {
         setInvisitorsData(invisitors?.data)
