@@ -38,7 +38,6 @@ import Download from "pages/Presentation/sections/Download";
 import {Link} from "react-router-dom"
 // Presentation page components
 import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
-
 // Routes
 import MyRoutes from "routes";
 import footerRoutes from "footer.routes";
@@ -49,8 +48,14 @@ import RotatingCardBack from "examples/Cards/RotatingCard/RotatingCardBack";
 import bgFront from "assets/images/rotating-card-bg-front.jpeg";
 import bgBack from "assets/images/rotating-card-bg-back.jpeg";
 
+
 // Images
-import bgImage from "assets/images/bg.jpg";
+// import bgImage from "assets/images/bg.jpg";
+import farmbackground9 from "assets/images/farmbackground9.jpg";
+// import farmbackground11 from "assets/images/farmbackground11.jpg";
+// import farmbackground from "assets/images/farmbackground.jpeg";
+// import farmbackground8 from "assets/images/farmbackground8.png";
+// import farmbackground6 from "assets/images/farmbackground6.webp";
 
 function Home () {
   const myRoutes=MyRoutes()
@@ -71,7 +76,10 @@ function Home () {
         minHeight="75vh"
         width="100%"
         sx={{
-          backgroundImage: `url(${bgImage})`,
+          backgroundImage: `url(${farmbackground9})`,
+          // backgroundImage: `url(${farmbackground})`,
+          // backgroundImage: `url(${farmbackground6})`,
+          // backgroundImage: `url(${farmbackground8})`,
           backgroundSize: "cover",
           backgroundPosition: "top",
           display: "grid",
@@ -91,7 +99,7 @@ function Home () {
                 },
               })}
             >
-             Green Hand{" "}
+             {/* Green Hand{" "} */}
             </MKTypography>
            
           </Grid>

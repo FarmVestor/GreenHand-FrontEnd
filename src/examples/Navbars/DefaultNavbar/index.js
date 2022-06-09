@@ -30,6 +30,7 @@ import Grow from "@mui/material/Grow";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import MuiLink from "@mui/material/Link";
+// import logo from "../../../assets/images/products/logo"
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -39,6 +40,7 @@ import MKButton from "components/MKButton";
 // Material Kit 2 React example components
 import DefaultNavbarDropdown from "examples/Navbars/DefaultNavbar/DefaultNavbarDropdown";
 import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMobile";
+// import logo from "../../../../src/assets/images/"
 
 // Material Kit 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
@@ -518,6 +520,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
 
 // Setting default values for the props of DefaultNavbar
 DefaultNavbar.defaultProps = {
+  // imag:"hi",
   brand: "logo",
   transparent: false,
   light: false,
@@ -529,6 +532,7 @@ DefaultNavbar.defaultProps = {
 
 // Typechecking props for the DefaultNavbar
 DefaultNavbar.propTypes = {
+  // imag:PropTypes.string,
   brand: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
   transparent: PropTypes.bool,

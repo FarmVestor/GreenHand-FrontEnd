@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
 import { green } from '@mui/material/colors';
+import { red } from '@mui/material/colors';
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -124,7 +125,7 @@ export default function Farmers() {
                             <Icon fontSize="small" sx={{ color: green[300] }}>modeEdit</Icon>
                           </Link>
 
-                          <Icon fontSize="small" sx={{ color: green[300] }} 
+                          <Icon fontSize="small" sx={{ color: red[300] }} 
                           onClick={()=>{
                             deleteFarm(farm.id)}
                           }

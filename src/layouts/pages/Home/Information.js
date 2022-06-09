@@ -29,6 +29,10 @@ import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 // Images
 import bgFront from "assets/images/bg.jpg";
 import bgBack from "assets/images/bg.jpg";
+import farmcard from "assets/images/farmcard.jpeg";
+// import investors from "assets/images/investors1.jpeg";
+import investors from "assets/images/investors.webp";
+import agensts from "assets/images/agensts.jpeg";
 
 function Information() {
   return (
@@ -38,7 +42,7 @@ function Information() {
           <Grid item xs={12} lg={4} sx={{ mx: "auto" }}>
             <RotatingCard>
               <RotatingCardFront
-                image={bgFront}
+                image={farmcard}
                 icon="touch_app"
                 color="success"
                 description="See All Farms"
@@ -59,7 +63,7 @@ function Information() {
           <Grid item xs={12} lg={4} sx={{ mx: "auto" }}>
             <RotatingCard>
               <RotatingCardFront
-                image={bgFront}
+                image={investors}
                 icon="touch_app"
                 color="success"
                 description="See all Investors"
@@ -80,7 +84,7 @@ function Information() {
           <Grid item xs={12} lg={4} sx={{ mx: "auto" }}>
             <RotatingCard>
               <RotatingCardFront
-                image={bgFront}
+                image={agensts}
                 icon="touch_app"
                 color="success"
                 description="See All Agents"

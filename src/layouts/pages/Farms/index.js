@@ -79,11 +79,10 @@ export default function Farms() {
   //get farms
   useEffect(() => {
     request(`${process.env.REACT_APP_API_URL}farms?filter=${JSON.stringify(filter)}`, {}, null, {
-      // auth: true,
+      auth: true,
     }, 'get')
       .then(farms => {
         setFarmsData(farms?.data)
-
         console.log("dddddd", farms)
 
       })
