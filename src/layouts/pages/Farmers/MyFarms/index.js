@@ -75,22 +75,10 @@ console.log("ctx.userIdOOOOOOOO)",window.localStorage.getItem('userId'))
 
             <MKBox bgColor="white">
               <Link to='/farm/add'>
-                {/* <MKButton variant="text"> */}
                   <Icon fontSize="large"
                     sx={{ color: green[500] }}>add_circle</Icon>
-                {/* </MKButton> */}
               </Link>
-              {/* <Link to='/farm/add'>
-                <Icon
-                    baseClassName="fas"
-                    className="fa-plus-circle"
-                    fontSize="large"
-                    sx={{ color: green[500] }}
-                    // onClick={() => {
-                    //   console.log("I'm a button.");
-                    //   }}
-                    />
-            </Link> */}
+          
               <Card
 
                 sx={{
