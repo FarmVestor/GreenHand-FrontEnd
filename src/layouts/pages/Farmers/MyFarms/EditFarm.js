@@ -53,7 +53,7 @@ export default function EditFarm() {
   const [farmKindData, setFarmKindData] = useState([])
   const [cropData, setCropData] = useState([])
   const [lastCropData, setLastCropData] = useState([])
-
+  console.log("ctx",ctx.userId)
 
   const [farmData, setFarmData] = useState({ userId: null, farmName: '', cityId: null, farmArea: 0, cropId: null, farmLicense: '', farmAvailable: 1, farmKindId: null, farmVisibiltiy: 1, farmWaterSalinity: 0, farmLastCropsId: 0, farmFertilizer: '', farmTreesAge: 0, farmDescription: '', farmLongitude: 40.5, farmLatitude: 28.5 })
   const closeSnakBar = () => setOpenSnakBar(false)
@@ -65,7 +65,7 @@ export default function EditFarm() {
     const farmPicture = farmPictureRef.current.querySelector("input[type=file").files;
 
     const formdata = new FormData();
-    formdata.append("userId", farmData?.userId);
+    formdata.append("userId", ctx.userId);
     formdata.append("farmName", farmData?.farmName);
     formdata.append("cityId", farmData?.cityId);
     formdata.append("farmArea", farmData?.farmArea);
@@ -96,15 +96,8 @@ export default function EditFarm() {
       },
     }).then(responce => {
       responce.json().then(farmedited => {
-        // console.log(farmedited)
-        setServerResponce(farmedited.messages.join(' '))
-        if (farmedited.success) {
-          setSnakBarColor('success')
-        }
-        else {
-          setSnakBarColor('warning')
-        }
-        setOpenSnakBar(true)
+        console.log("farmedited",farmedited)
+        alert(farmedited.messages)
       })
     }).catch(e => e)
 
@@ -143,8 +136,8 @@ export default function EditFarm() {
     const city = citiesData.filter((city) => city.id == e.target.value)
     //  setLongitude(city.longitude)
     //  setLatitude(city.latitude)
-    updateFarmData({ farmLongitude: city.longitude })
-    updateFarmData({ farmLatitude: city.latitude })
+    // updateFarmData({ farmLongitude: city.longitude })
+    // updateFarmData({ farmLatitude: city.latitude })
     updateFarmData({ cityId: e.target.value })
   }
 
@@ -159,7 +152,6 @@ export default function EditFarm() {
       });
 
   }, []);
-
   // useEffect(() => {
   //   request(`${process.env.REACT_APP_API_URL}addresses/city`, {}, null, {
   //     auth: true,
@@ -196,6 +188,7 @@ export default function EditFarm() {
       })
 
   }, [])
+  console.log(farmData,"---------from farm------------")
   const updateFarmData = (obj) => {
     setFarmData({
       ...farmData,
@@ -213,16 +206,7 @@ export default function EditFarm() {
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
 
-                  <MKBox mb={2}>
-                    <MKInput
-                      type="text"
-                      label="farmer Id"
-                      variant="standard"
-                      value={farmData?.userId}
-                      onChange={(e) => { updateFarmData({ userId: e.target.value }) }}
-                      fullWidth
-                    />
-                  </MKBox>
+                  
                   <MKBox mb={2}>
                     <MKInput
                       type="text"
@@ -471,7 +455,7 @@ export default function EditFarm() {
                   <MKBox mb={2}>
                     <MKInput
                       type="number"
-                      value={farmData?.farmLongitude}
+                      value={farmData?.farmLatitude}
                       onChange={(e) => { updateFarmData({ farmLatitude: e.target.value }) }}
                       label="farm Latitude"
                       variant="standard"
@@ -490,13 +474,13 @@ export default function EditFarm() {
                   </MKBox>
                   <MKBox mb={2}>
                     <Wrapper apiKey={''} >
-                      <Map center={{ lat: farmData.farmLatitude, lng: farmData.farmLongitude }} updateFarm={setFarmData} prevState={setFarmData} zoom={8} />
+                      <Map center={{ lat: farmData.farmLatitude, lng: farmData.farmLongitude }} updateFarm={setFarmData} prevState={farmData} zoom={8} />
                     </Wrapper>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
                     <MKButton
                       variant="gradient"
-                      color="info"
+                      color="success"
                       fullWidth
                       onClick={editFarm}
                     >
@@ -509,16 +493,6 @@ export default function EditFarm() {
           </Grid>
         </Grid>
       </MKBox>
-      // <MDSnackbar
-      //   color={snakBarColor}
-      //   icon={snakBarColor == "success" ? 'check' : 'warning'}
-      //   title="Place App"
-      //   content={serverResponce}
-      //   open={openSnakBar}
-      //   dateTime=""
-      //   onClose={closeSnakBar}
-      //   close={closeSnakBar}
-      //   bgWhite
-      // />
+     
   );
 }

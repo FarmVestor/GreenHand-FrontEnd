@@ -6,51 +6,82 @@ import Grid from "@mui/material/Grid";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import { Link, useParams } from 'react-router-dom'
-// Material Kit 2 React examples
-import RotatingCard from "examples/Cards/RotatingCard";
-import RotatingCardFront from "examples/Cards/RotatingCard/RotatingCardFront";
-import RotatingCardBack from "examples/Cards/RotatingCard/RotatingCardBack";
-import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
-import Profile from "pages/LandingPages/Author/sections/Profile";
-import Posts from "pages/LandingPages/Author/sections/Posts";
-import Contact from "pages/LandingPages/Author/sections/Contact";
-import Footer from "pages/LandingPages/Author/sections/Footer";
-import bgImage from "assets/images/city-profile.jpg";
+
 import TransparentBlogCard from "examples/Cards/BlogCards/TransparentBlogCard";
-import BackgroundBlogCard from "examples/Cards/BlogCards/BackgroundBlogCard";
+import MKTypography from "components/MKTypography";
+
+
+import { FormControl, NativeSelect } from "@mui/material";
+import InputLabel from '@mui/material/InputLabel';
 
 // Images
-import post1 from "assets/images/examples/testimonial-6-2.jpg";
-import post2 from "assets/images/examples/testimonial-6-3.jpg";
-import post3 from "assets/images/examples/blog-9-4.jpg";
-import post4 from "assets/images/examples/blog2.jpg";
-
-
-// Images
-import bgFront from "assets/images/bg.jpg";
 import bgBack from "assets/images/bg.jpg";
+
 import Card from "@mui/material/Card";
 import { useRequest } from "lib/functions";
 
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useRef, useState } from "react";
+import MKInput from "components/MKInput";
 
 
 export default function Investors() {
 
   const request = useRequest()
-  const [invisitorsData, setInvisitorsData] = useState([]) 
-  const id = 3
+  const [invisitorsData, setInvisitorsData] = useState([])
+  const searchRef = useRef(null)
+
+  const [filter, setFilter] = useState({
+    farmKindId: null,
+    cropId: null,
+    invName: ''
+  })
 
   useEffect(() => {
-    request(`${process.env.REACT_APP_API_URL}users/all`, {}, null, {
+    request(`${process.env.REACT_APP_API_URL}users/all?type=${3}&filter=${JSON.stringify(filter)}`, {}, null, {
     }, 'get')
       .then(invisitors => {
         setInvisitorsData(invisitors?.data)
         console.log("dddddd", invisitors)
 
       })
-  }, [])
+  }, [filter])
 
+
+  const [farmKindData, setFarmKindData] = useState([])
+  const [cropData, setCropData] = useState([])
+
+  // get farmkinds
+  useEffect(() => {
+    request(`${process.env.REACT_APP_API_URL}farms/farmKinds/all`, {}, null, {
+      auth: true,
+    }, 'get')
+      .then((farmkinds) => {
+        console.log("farmkinds", farmkinds)
+
+        setFarmKindData(farmkinds?.data);
+      });
+
+  }, []);
+
+  useEffect(() => {
+    request(`${process.env.REACT_APP_API_URL}farms/crops/all`, {}, null, {
+      auth: true,
+    }, 'get')
+      .then((crop) => {
+        console.log("cropsData", crop)
+        setCropData(crop?.data);
+
+      });
+
+  }, []);
+
+  const updateFilter = (obj) => {
+    setFilter({
+      ...filter,
+      ...obj
+    })
+  }
+  console.log("filter", filter)
 
   return (
     <Card>
@@ -58,7 +89,71 @@ export default function Investors() {
         <Container>
           <Grid container item xs={11} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
             <MKBox bgColor="white">
-              <Card
+
+              <Grid py={5} display={"inline-flex"} justify-content={"center"} spacing={3} >
+
+
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Crops
+                  </InputLabel>
+                  <NativeSelect
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={filter.cropId}
+                    label="Crops"
+
+                    onChange={(e) => { updateFilter({ cropId: e.target.value }) }}
+                  >
+                    <option value={null} >all</option>
+                    {cropData?.map((crop, i) => {
+                      return (
+                        <option value={crop.id} key={i}>
+                          {crop.cropName}
+                        </option>
+                      );
+                    })}
+                  </NativeSelect>
+                </FormControl>
+
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Farm Kind
+                  </InputLabel>
+                  <NativeSelect
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={filter.farmKindId}
+                    label="FarmKind"
+
+                    onChange={(e) => { updateFilter({ farmKindId: e.target.value }) }}
+                  >
+                    <option value={null} >all</option>
+                    {farmKindData?.map((farmkind, i) => {
+                      return (
+                        <option value={farmkind.id} key={i}>
+                          {farmkind.farmKind}
+                        </option>
+                      );
+                    })}
+                  </NativeSelect>
+                </FormControl>
+
+                <MKBox mb={2}>
+                  <MKInput
+                    type="text"
+                    value={filter.invName}
+                    label="Search"
+                    variant="standard"
+                    onChange={(e) => { updateFilter({ invName: e.target.value }) }}
+                    fullWidth
+                  />
+                </MKBox>
+
+
+              </Grid>
+
+              {/* <Card
                 sx={{
                   p: 2,
                   mx: { xs: 2, lg: 3 },
@@ -68,31 +163,33 @@ export default function Investors() {
                   backdropFilter: "saturate(200%) blur(30px)",
                   boxShadow: ({ boxShadows: { xxl } }) => xxl,
                 }}
-              >
+              > */}
                 <Grid container spacing={3}>
-                  {invisitorsData?.map((invisitor, i) => {
-                    return (
-                      <Grid item xs={12} sm={6} lg={3}>
-                        <Link to={`/investor/description/${invisitor.id}`}>
-                          <TransparentBlogCard
-                            image={bgBack}
-                            description={invisitor?.userEmail}
-                            title={invisitor?.userName}
-                            action={{
-                              type: "internal",
-                              route: `/investor/description/${invisitor.id}`,
-                              color: "info",
-                              label: "read more",
-                            }}
-                          />
+                {/* <Grid><MKTypography>No results</MKTypography></Grid> */}
 
-                        </Link>
-                      </Grid>
-                    )
-                  })}
+                  {(invisitorsData?.length == 0) ? (<MKTypography>No results</MKTypography>) : (invisitorsData?.map((invisitor, i) => {
+                      return (
+                        <Grid item xs={12} sm={6} lg={3}>
+                          <Link to={`/investor/description/${invisitor.id}`}>
+                            <TransparentBlogCard
+                              image={bgBack}
+                              description={invisitor?.userEmail}
+                              title={invisitor?.userName}
+                              action={{
+                                type: "internal",
+                                route: `/investor/description/${invisitor.id}`,
+                                color: "info",
+                                label: "read more",
+                              }}
+                            />
+
+                          </Link>
+                        </Grid>
+                      )
+                    }))}
 
                 </Grid>
-              </Card>
+              {/* </Card> */}
 
             </MKBox>
           </Grid>
