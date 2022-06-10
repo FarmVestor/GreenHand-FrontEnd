@@ -8,18 +8,7 @@ import EditFarm from "layouts/pages/Farmers/MyFarms/EditFarm"
 import MyTrash from "layouts/pages/Farmers/MyTrash"
 import Profile from 'layouts/pages/Profile/Profile';
 import Farmers from "layouts/pages/Farmers/MyFarms"
-//investor routes
-import Investors from "layouts/pages/Investors"
-import SignOut from "layouts/pages/sign-out/index";
-import UserProfile from "layouts/pages/Profile/Profile";
-import AddRequest from "layouts/pages/Investors/MyRequests/AddRequests";
-import EditRequest from "layouts/pages/Investors/MyRequests/EditRequest";
-import InvestorDeals from "layouts/pages/Investors/MyDeals/index";
-import InvestorAddDeal from "layouts/pages/Investors/MyDeals/AddDeal";
-import InvestorEditDeal from "layouts/pages/Investors/MyDeals/EditDeal";
-import Trash from 'layouts/pages/Investors/trash';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import Requests from 'layouts/pages/Investors/MyRequests';
+
 
 
 // @mui material components
@@ -33,13 +22,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FarmDescription from 'layouts/pages/Landing/AllFarms/farmDescription'
 import InvestorDescription from 'layouts/pages/Landing/AllInvestors/InvestorDescription'
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+// import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 // Pages
-import AboutUs from "layouts/pages/landing-pages/about-us";
-import ContactUs from "layouts/pages/landing-pages/contact-us";
-import Author from "layouts/pages/landing-pages/author";
-import SignIn from "layouts/pages/Sign-in";
+// import AboutUs from "layouts/pages/landing-pages/about-us";
+// import ContactUs from "layouts/pages/landing-pages/contact-us";
 // Sections
 
 //investor routes
@@ -52,12 +39,16 @@ import InvestorDeals from "layouts/pages/Investors/MyDeals/index";
 import InvestorAddDeal from "layouts/pages/Investors/MyDeals/AddDeal";
 import InvestorEditDeal from "layouts/pages/Investors/MyDeals/EditDeal";
 import Trash from 'layouts/pages/Investors/trash';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import Requests from 'layouts/pages/Investors/MyRequests';
 
 // Sections
 
 import Farms from "layouts/pages/Landing/AllFarms/index"
 import Home from "layouts/pages/Home"
 import SignUp from "layouts/pages/Sign-up";
+import SignIn from "layouts/pages/Sign-in";
+
 import {useContext} from "react"
 import { AuthContext } from "context/AuthContext";
 
@@ -89,8 +80,8 @@ function MyRoutes (){
         },
         {
           name: "Find Agents",
-          route: "/pages/landing-pages/author",
-          component: <Author />,
+          route: "/presentation",
+          component: <Home />,
         },
       ],
     },
