@@ -123,9 +123,9 @@ export default function Deals() {
                             py={3}
                             px={2}
                             variant="gradient"
-                            bgColor="info"
+                            style={{backgroundColor:"#ECFFDC"}}
                             borderRadius="lg"
-                            coloredShadow="info"
+                            coloredShadow="success"
                         >
                             <Grid
                                 container
@@ -133,13 +133,13 @@ export default function Deals() {
                                 justifyContent="space-between"
                                 alignItems="center"
                             >
-                                <MKTypography variant="h6" color="white">
+                                <MKTypography variant="h6" color="black">
                                     My Deals
                                 </MKTypography>
 
 
-                                <Link to='/deal/add'>
-                                    <MKButton variant="text">
+                                <Link  to='/deal/add'>
+                                    <MKButton color="black" variant="text">
                                         <Icon>add_circle</Icon>&nbsp;Add
                                     </MKButton>
                                 </Link>

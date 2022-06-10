@@ -51,7 +51,7 @@ export default function AddRequest() {
             budget: budget,
             farmKindId: farmKind,
             cropId: crop,
-            userId: ctx.userId
+            userId: window.localStorage.getItem('userId')
         }, {
              auth: true,
             type: 'json',

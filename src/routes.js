@@ -133,8 +133,6 @@ function MyRoutes (){
   ]
 
 
-
-
   if(window.localStorage.getItem("userTypeId")==2){
     routes.pop(
       {
@@ -243,7 +241,7 @@ greenhand.push({
     routes.push(
       {
         //name: "Accountttt",
-        icon: <AccountCircleOutlinedIcon/>,
+        icon: <Icon fontSize="small">account_circle</Icon>,
     
     
         collapse: [
