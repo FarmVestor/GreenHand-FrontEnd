@@ -25,7 +25,7 @@ import BackgroundBlogCard from "examples/Cards/BlogCards/BackgroundBlogCard";
 
 import Card from "@mui/material/Card";
 import { useRequest } from "../../../../lib/functions";
-// import { AuthContext } from "context/AuthContext";
+import { AuthContext } from "context/AuthContext";
 
 
 import { useEffect, useState, useContext } from "react";
@@ -35,7 +35,7 @@ export default function Farmers() {
 
   const request = useRequest()
   const [farmsData, setFarmsData] = useState([])
-  // const ctx = useContext(AuthContext)
+  const ctx = useContext(AuthContext)
 
   const deleteFarm = (farmId) => {
     if (window.confirm('Are you sure')) {
@@ -50,8 +50,7 @@ export default function Farmers() {
     }
 
 }
-
-  // const id = 1
+console.log("ctx.userIdOOOOOOOO)",window.localStorage.getItem('userId'))
   useEffect(() => {
     let fetchFarm = async () => {
       await request(`${process.env.REACT_APP_API_URL}farms`, {}, null, {
@@ -69,15 +68,17 @@ export default function Farmers() {
   return (
     <Card>
       <MKBox component="section" py={6} my={6}>
+      <Grid  height={"2vh"} item xs={12} md={8} sx={{ mb: 6 }}>
+          </Grid>
         <Container>
           <Grid container item xs={19} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
 
             <MKBox bgColor="white">
               <Link to='/farm/add'>
-                <MKButton variant="text">
+                {/* <MKButton variant="text"> */}
                   <Icon fontSize="large"
-                    sx={{ color: green[500] }}>add_circle</Icon>&nbsp;Add
-                </MKButton>
+                    sx={{ color: green[500] }}>add_circle</Icon>
+                {/* </MKButton> */}
               </Link>
               {/* <Link to='/farm/add'>
                 <Icon

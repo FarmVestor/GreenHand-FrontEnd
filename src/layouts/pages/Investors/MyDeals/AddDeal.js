@@ -107,7 +107,7 @@ export default function InvestorAddDeal() {
                                     <Box sx={{ minWidth: 120 }}>
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">
-                                                Farm ID
+                                                Farm Name
                                             </InputLabel>
                                             <NativeSelect
                                                 labelId="demo-simple-select-label"
@@ -138,7 +138,7 @@ export default function InvestorAddDeal() {
 
                                 <MKBox mb={2}>
                                     <FormControl>
-                                        <FormLabel id="demo-row-radio-buttons-group-label">dealStatus</FormLabel>
+                                        <FormLabel id="demo-row-radio-buttons-group-label">deal Status</FormLabel>
                                         <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" onChange={(event) => {
                                             setDealStatus(event.target.value)
                                         }}>

@@ -99,7 +99,7 @@ function Home () {
                 },
               })}
             >
-             {/* Green Hand{" "} */}
+             Green Hand{" "}
             </MKTypography>
            
           </Grid>

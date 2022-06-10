@@ -25,8 +25,8 @@ import { useParams } from "react-router-dom";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import CheckIcon from '@mui/icons-material/Check';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
- 
- 
+
+
 
 function Map({ center, zoom, children }) {
     const mapRef = useRef(null)
@@ -110,14 +110,14 @@ export default function FarmDescription() {
                             </Grid>
                             <Grid item xs={12} lg={6}>
                                 <MKBox component="form" p={2} method="post">
-                                    <MKBox px={3} py={{ xs: 2, sm: 6 }}>
+                                    {/* <MKBox px={3} py={{ xs: 2, sm: 6 }}> */}
                                         <MKTypography variant="h2" mb={1}>
                                             {farmCtx.place?.farmName}
                                         </MKTypography>
                                         <MKTypography variant="body1" color="text" mb={2}>
                                             {farmCtx.place?.User?.userName}
                                         </MKTypography>
-                                    </MKBox>
+                                    {/* </MKBox> */}
                                     <MKBox pt={0.5} pb={3} px={3}>
                                         <Grid container>
                                             <Grid item xs={12} pr={1} mb={6}>
@@ -150,7 +150,8 @@ export default function FarmDescription() {
                                                                     Farm Area:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.farmArea}  M                                                               </TableCell>
+                                                                    {farmCtx.place?.farmArea}                                                               
+                                                                     </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -160,7 +161,8 @@ export default function FarmDescription() {
                                                                     Current Crop Name:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.Crop?.cropName}                                                                 </TableCell>
+                                                                    {farmCtx.place?.Crop?.cropName}                                                            
+                                                                         </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -170,7 +172,8 @@ export default function FarmDescription() {
                                                                     Current Tree Age:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.farmTreesAge}                                                              </TableCell>
+                                                                    {farmCtx.place?.farmTreesAge}                                                     
+                                                                             </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -180,7 +183,8 @@ export default function FarmDescription() {
                                                                     Last Crop Name:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.LastCrop?.cropName}                                                          </TableCell>
+                                                                    {farmCtx.place?.LastCrop?.cropName}           
+                                                                                                                   </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -190,24 +194,50 @@ export default function FarmDescription() {
                                                                     Farm License:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.farmLicense}                                                         </TableCell>
+                                                                    {farmCtx.place?.farmLicense}    
+                                                               </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
                                                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 
                                                                 <TableCell component="th" scope="row">
-                                                                    Farm License:
+                                                                    Farm Water Salinity:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.farmLicense}                                                         </TableCell>
+                                                                    {farmCtx.place?.farmWaterSalinity}
+                                                                </TableCell>
+
+                                                            </TableRow>
+
+                                                            <TableRow key="ds"
+                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+
+                                                                <TableCell component="th" scope="row">
+                                                                    Farm Fertilizer:
+                                                                </TableCell>
+                                                                <TableCell component="th" scope="row">
+                                                                    {farmCtx.place?.farmFertilizer}
+                                                                </TableCell>
+
+                                                            </TableRow>
+
+                                                            <TableRow key="ds"
+                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+
+                                                                <TableCell component="th" scope="row">
+                                                                    Description:
+                                                                </TableCell>
+                                                                <TableCell component="th" scope="row">
+                                                                    {farmCtx.place?.farmDescription}
+                                                                </TableCell>
 
                                                             </TableRow>
 
                                                         </TableBody>
                                                     </Table>
                                                 </TableContainer>
-                                                
+
 
                                             </Grid>
 
