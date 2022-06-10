@@ -1,4 +1,5 @@
-
+// import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+// import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import MKBox from "components/MKBox";
@@ -508,6 +509,16 @@ export default function EditFarm() {
           </Grid>
         </Grid>
       </MKBox>
-   
+      // <MDSnackbar
+      //   color={snakBarColor}
+      //   icon={snakBarColor == "success" ? 'check' : 'warning'}
+      //   title="Place App"
+      //   content={serverResponce}
+      //   open={openSnakBar}
+      //   dateTime=""
+      //   onClose={closeSnakBar}
+      //   close={closeSnakBar}
+      //   bgWhite
+      // />
   );
 }

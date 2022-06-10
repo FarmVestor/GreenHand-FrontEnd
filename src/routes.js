@@ -9,6 +9,7 @@ import MyTrash from "layouts/pages/Farmers/MyTrash"
 import Profile from 'layouts/pages/Profile/Profile';
 import Farmers from "layouts/pages/Farmers/MyFarms"
 //investor routes
+import Investors from "layouts/pages/Landing/AllInvestors"
 import SignOut from "layouts/pages/sign-out/index";
 import UserProfile from "layouts/pages/Profile/Profile";
 import AddRequest from "layouts/pages/Investors/MyRequests/AddRequests";
@@ -17,7 +18,7 @@ import InvestorDeals from "layouts/pages/Investors/MyDeals/index";
 import InvestorAddDeal from "layouts/pages/Investors/MyDeals/AddDeal";
 import InvestorEditDeal from "layouts/pages/Investors/MyDeals/EditDeal";
 import Trash from 'layouts/pages/Investors/trash';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+// import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Requests from 'layouts/pages/Investors/MyRequests';
 
 
@@ -40,17 +41,6 @@ import Author from "layouts/pages/landing-pages/author";
 import SignIn from "layouts/pages/Sign-in";
 // Sections
 
-//investor routes
-import Investors from "layouts/pages/Landing/AllInvestors"
-// import UserProfile from "layouts/pages/Profile/Profile";
-// import AddRequest from "layouts/pages/Investors/MyRequests/AddRequests";
-// import EditRequest from "layouts/pages/Investors/MyRequests/EditRequest";
-// import InvestorDeals from "layouts/pages/Investors/MyDeals/index";
-// import InvestorAddDeal from "layouts/pages/Investors/MyDeals/AddDeal";
-// import InvestorEditDeal from "layouts/pages/Investors/MyDeals/EditDeal";
-// import Trash from 'layouts/pages/Investors/trash';
-
-// Sections
 
 import Farms from "layouts/pages/Landing/AllFarms/index"
 import Home from "layouts/pages/Home"
@@ -137,8 +127,6 @@ function MyRoutes (){
       component: <InvestorDescription />,
     },
   ]
-
-
 
 
   if(window.localStorage.getItem("userTypeId")==2){

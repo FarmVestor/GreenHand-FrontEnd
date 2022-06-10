@@ -56,7 +56,7 @@ export default function Farms() {
     }, 'get')
       .then((city) => {
         console.log("cityData", city)
-        setCityData(city.data);
+        setCityData(city?.data);
 
       });
 
@@ -78,8 +78,8 @@ export default function Farms() {
 
   //get farms
   useEffect(() => {
-    request(`${process.env.REACT_APP_API_URL}farms?filter=${JSON.stringify(filter)}`, {}, null, {
-      auth: true,
+    request(`${process.env.REACT_APP_API_URL}farms/all?filter=${JSON.stringify(filter)}`, {}, null, {
+      // auth: true,
     }, 'get')
       .then(farms => {
         setFarmsData(farms?.data)
