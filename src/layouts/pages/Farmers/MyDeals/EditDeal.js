@@ -97,11 +97,11 @@ export default function EditDeal() {
                                 py={3}
                                 px={2}
                                 variant="gradient"
-                                bgColor="info"
+                                style={{backgroundColor:"#ECFFDC"}}
                                 borderRadius="lg"
-                                coloredShadow="info"
+                                coloredShadow="success"
                             >
-                                <MKTypography vaariant="h6" color="white">
+                                <MKTypography vaariant="h6" color="black">
                                     Edit a Deal
                                 </MKTypography>
                             </MKBox>
@@ -144,7 +144,7 @@ export default function EditDeal() {
 
 
                                     <MKBox mt={4} mb={1}>
-                                        <MKButton variant="gradient" color="info" fullWidth onClick={editDeal}>
+                                        <MKButton variant="gradient" color="success" fullWidth onClick={editDeal}>
                                             Save Deal
                                         </MKButton>
                                     </MKBox>

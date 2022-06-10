@@ -496,7 +496,7 @@ export default function EditFarm() {
                   <MKBox mt={4} mb={1}>
                     <MKButton
                       variant="gradient"
-                      color="info"
+                      color="success"
                       fullWidth
                       onClick={editFarm}
                     >
@@ -509,16 +509,6 @@ export default function EditFarm() {
           </Grid>
         </Grid>
       </MKBox>
-      // <MDSnackbar
-      //   color={snakBarColor}
-      //   icon={snakBarColor == "success" ? 'check' : 'warning'}
-      //   title="Place App"
-      //   content={serverResponce}
-      //   open={openSnakBar}
-      //   dateTime=""
-      //   onClose={closeSnakBar}
-      //   close={closeSnakBar}
-      //   bgWhite
-      // />
+     
   );
 }

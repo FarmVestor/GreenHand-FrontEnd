@@ -488,7 +488,7 @@ export default function AddFarm() {
                 <MKBox mt={4} mb={1}>
                   <MKButton
                     variant="gradient"
-                    color="info"
+                    color="success"
                     fullWidth
                     onClick={addFarm}
                   >
