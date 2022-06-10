@@ -8,6 +8,7 @@ import MKBox from "components/MKBox";
 import { Link } from 'react-router-dom'
 
 import TransparentBlogCard from "examples/Cards/BlogCards/TransparentBlogCard";
+import MKTypography from "components/MKTypography";
 
 import Card from "@mui/material/Card";
 import { useRequest } from "../../../../lib/functions";
@@ -83,7 +84,7 @@ export default function Farms() {
     }, 'get')
       .then(farms => {
         setFarmsData(farms?.data)
-        console.log("dddddd", farms)
+        // console.log("dddddd", farms)
 
       })
   }, [filter])
@@ -208,7 +209,7 @@ export default function Farms() {
                     id="demo-simple-select"
                     value={filter.farmAvailable}
                     label="FarmKind"
-                    defaultValue="1"
+                    
                     onChange={(e) => { updateFilter({ farmAvailable: e.target.value }) }}
                   >
                     <option value={null} >all</option>
@@ -222,7 +223,7 @@ export default function Farms() {
                 
 
               </Grid>
-              <Card
+              {/* <Card
                 sx={{
                   p: 2,
                   mx: { xs: 2, lg: 3 },
@@ -232,9 +233,9 @@ export default function Farms() {
                   backdropFilter: "saturate(200%) blur(30px)",
                   boxShadow: ({ boxShadows: { xxl } }) => xxl,
                 }}
-              >
+              > */}
                 <Grid container spacing={3}>
-                  {farmsData?.map((farm, i) => {
+                  {(farmsData?.length == 0) ? (<MKTypography>No results</MKTypography>) : (farmsData?.map((farm, i) => {
                     return (
                       <Grid item xs={12} sm={6} lg={3}>
                         <Link to={`/farms/description/${farm.id}`}>
@@ -253,10 +254,10 @@ export default function Farms() {
                         </Link>
                       </Grid>
                     )
-                  })}
+                  }))}
 
                 </Grid>
-              </Card>
+              {/* </Card> */}
 
             </MKBox>
           </Grid>
