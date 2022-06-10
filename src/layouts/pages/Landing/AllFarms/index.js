@@ -115,10 +115,10 @@ export default function Farms() {
                     id="demo-simple-select"
                     value={filter.cityId}
                     label="City"
-                    defaultValue="1"
                     onChange={(e) => { updateFilter({ cityId: e.target.value }) }}
                   >
-                    <option value={null} >all</option>
+                    <option value='' ></option>
+                    <option value='' >all</option>
                     {cityData?.map((city, i) => {
                       return (
                         <option value={city.id} key={i}>
@@ -139,10 +139,10 @@ export default function Farms() {
                     id="demo-simple-select"
                     value={filter.lastCropId}
                     label="Crops"
-                    defaultValue="1"
                     onChange={(e) => { updateFilter({ lastCropId: e.target.value }) }}
                   >
-                    <option value={null} >all</option>
+                    <option value='' ></option>
+                    <option value= '' >all</option>
                     {lastCropData?.map((crop, i) => {
                       return (
                         <option value={crop.id} key={i}>
@@ -163,10 +163,10 @@ export default function Farms() {
                     id="demo-simple-select"
                     value={filter.cropId}
                     label="Crops"
-                    defaultValue="1"
                     onChange={(e) => { updateFilter({ cropId: e.target.value }) }}
                   >
-                    <option value={null} >all</option>
+                    <option value='' ></option>
+                    <option value='' >all</option>
                     {cropData?.map((crop, i) => {
                       return (
                         <option value={crop.id} key={i}>
@@ -186,10 +186,10 @@ export default function Farms() {
                     id="demo-simple-select"
                     value={filter.farmKindId}
                     label="FarmKind"
-                    defaultValue="1"
                     onChange={(e) => { updateFilter({ farmKindId: e.target.value }) }}
                   >
-                    <option value={null} >all</option>
+                    <option value='' ></option>
+                    <option value='' >all</option>
                     {farmKindData?.map((farmkind, i) => {
                       return (
                         <option value={farmkind.id} key={i}>
@@ -212,7 +212,8 @@ export default function Farms() {
                     
                     onChange={(e) => { updateFilter({ farmAvailable: e.target.value }) }}
                   >
-                    <option value={null} >all</option>
+                    <option value='' ></option>
+                    <option value='' >all</option>
                     <option value={1} >Available</option>
                     <option value={0} >Not Available</option>
 
