@@ -9,19 +9,8 @@ import { red } from '@mui/material/colors';
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import { Link } from 'react-router-dom'
-// Material Kit 2 React examples
-import MKButton from "components/MKButton";
-import RotatingCard from "examples/Cards/RotatingCard";
-import RotatingCardFront from "examples/Cards/RotatingCard/RotatingCardFront";
-import RotatingCardBack from "examples/Cards/RotatingCard/RotatingCardBack";
-import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
-import Profile from "pages/LandingPages/Author/sections/Profile";
-import Posts from "pages/LandingPages/Author/sections/Posts";
-import Contact from "pages/LandingPages/Author/sections/Contact";
-import Footer from "pages/LandingPages/Author/sections/Footer";
-import bgImage from "assets/images/city-profile.jpg";
+
 import TransparentBlogCard from "examples/Cards/BlogCards/TransparentBlogCard";
-import BackgroundBlogCard from "examples/Cards/BlogCards/BackgroundBlogCard";
 
 import Card from "@mui/material/Card";
 import { useRequest } from "../../../../lib/functions";

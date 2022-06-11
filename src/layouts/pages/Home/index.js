@@ -40,15 +40,6 @@ import {Link} from "react-router-dom"
 import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 // Routes
 import MyRoutes from "routes";
-import footerRoutes from "footer.routes";
-import RotatingCard from "examples/Cards/RotatingCard";
-import RotatingCardFront from "examples/Cards/RotatingCard/RotatingCardFront";
-import RotatingCardBack from "examples/Cards/RotatingCard/RotatingCardBack";
-// Images
-import bgFront from "assets/images/rotating-card-bg-front.jpeg";
-import bgBack from "assets/images/rotating-card-bg-back.jpeg";
-
-
 // Images
 // import bgImage from "assets/images/bg.jpg";
 import farmbackground9 from "assets/images/farmbackground9.jpg";
@@ -62,7 +53,7 @@ function Home () {
   const routes=myRoutes[0]
   return (
     <>
-      <DefaultNavbar
+      {/* <DefaultNavbar
         routes={routes}
         action={{
           type: "external",
@@ -71,7 +62,7 @@ function Home () {
           color: "info",
         }}
         sticky
-      />
+      /> */}
       <MKBox
         minHeight="75vh"
         width="100%"

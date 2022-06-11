@@ -170,7 +170,7 @@ function SignUp() {
                     variant="gradient"
                     style={{backgroundColor:"#ECFFDC"}}
                     borderRadius="lg"
-                    coloredShadow="sucess"
+                    coloredShadow="success"
                     mx={2}
                     mt={-3}
                     p={2}
@@ -178,7 +178,7 @@ function SignUp() {
                     height={"10vh"}
                     textAlign="center"
                   >
-                    <MKTypography variant="h4" fontWeight="medium" color="black" mt={1}>
+                    <MKTypography variant="h4" fontWeight="medium" color="dark" mt={1}>
                       Sign Up
                     </MKTypography>
 
@@ -207,11 +207,10 @@ function SignUp() {
                               City
                             </InputLabel>
                             <NativeSelect
-                              labelId="demo-simple-select-label"
+                              labelid="demo-simple-select-label"
                               id="demo-simple-select"
                               value={city}
                               label="City"
-                              defaultValue="1"
                               onChange={handleCityChange}
                             >
                               <option></option>
@@ -233,11 +232,10 @@ function SignUp() {
                               User Type
                             </InputLabel>
                             <NativeSelect
-                              labelId="demo-simple-select-label"
+                              labelid="demo-simple-select-label"
                               id="demo-simple-select"
                               value={userType}
                               label="City"
-                              defaultValue="1"
                               onChange={handleUserTypeChange}
                             >
                               <option></option>

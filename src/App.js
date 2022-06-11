@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useEffect ,useContext} from "react";
+import { useEffect } from "react";
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
@@ -23,7 +23,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 // Material Kit 2 React themes
 import theme from "assets/theme";
-import Presentation from "layouts/pages/presentation";
 import Home from "layouts/pages/Home";
 
 // Material Kit 2 React routes
@@ -36,9 +35,7 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 import MKBox from "components/MKBox";
 import footerRoutes from "footer.routes";
 
-import { AppContext } from "context/AppContext";
-import { AuthContext } from "context/AuthContext";
-import MKAlert from "components/MKAlert";
+
 
 export default function App() {
   const nav=MyRoutes()
@@ -49,7 +46,6 @@ export default function App() {
   // console.log("greenhand",greenhand)
 
   const { pathname } = useLocation();
-	const appCtx = useContext(AppContext)
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
