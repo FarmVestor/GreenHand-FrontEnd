@@ -140,7 +140,7 @@ function SignIn() {
                 mb={1}
                 textAlign="center"
               >
-                <MKTypography variant="h4" fontWeight="medium" color="black" mt={1}>
+                <MKTypography variant="h4" fontWeight="medium" color="dark" mt={1}>
                   Sign in
                 </MKTypography>
                

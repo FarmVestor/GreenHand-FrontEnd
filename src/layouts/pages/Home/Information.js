@@ -24,11 +24,7 @@ import MKBox from "components/MKBox";
 import RotatingCard from "examples/Cards/RotatingCard";
 import RotatingCardFront from "examples/Cards/RotatingCard/RotatingCardFront";
 import RotatingCardBack from "examples/Cards/RotatingCard/RotatingCardBack";
-import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 
-// Images
-import bgFront from "assets/images/bg.jpg";
-import bgBack from "assets/images/bg.jpg";
 import farmcard from "assets/images/farmcard.jpeg";
 // import investors from "assets/images/investors1.jpeg";
 import investors from "assets/images/investors.webp";
@@ -42,13 +38,14 @@ function Information() {
           <Grid item xs={12} lg={4} sx={{ mx: "auto" }}>
             <RotatingCard>
               <RotatingCardFront
+                title=''
                 image={farmcard}
                 icon="touch_app"
                 color="success"
                 description="See All Farms"
               />
               <RotatingCardBack
-               
+
                 title="Farms"
                 color="success"
                 description="click to see all Farms"
@@ -64,6 +61,7 @@ function Information() {
             <RotatingCard>
               <RotatingCardFront
                 image={investors}
+                title=''
                 icon="touch_app"
                 color="success"
                 description="See all Investors"
@@ -73,7 +71,7 @@ function Information() {
                 title="Investors"
                 color="success"
                 description="click to see all Investors"
-                 action={{
+                action={{
                   type: "internal",
                   route: "/investors",
                   label: "show",

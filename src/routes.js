@@ -6,23 +6,22 @@ import EditDeal from "layouts/pages/Farmers/MyDeals/EditDeal"
 import AddFarm from "layouts/pages/Farmers/MyFarms/AddFarm"
 import EditFarm from "layouts/pages/Farmers/MyFarms/EditFarm"
 import MyTrash from "layouts/pages/Farmers/MyTrash"
-import Profile from 'layouts/pages/Profile/Profile';
 import Farmers from "layouts/pages/Farmers/MyFarms"
 
+import EditProfile from 'layouts/pages/Profile/EditProfile'
+import Profile from 'layouts/pages/Profile/Profile';
 
 
-// @mui material components
 import Icon from "@mui/material/Icon";
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import LoginIcon from '@mui/icons-material/Login';
-// @mui icons
-import GitHubIcon from "@mui/icons-material/GitHub";
+
+
 import FarmDescription from 'layouts/pages/Landing/AllFarms/farmDescription'
 import InvestorDescription from 'layouts/pages/Landing/AllInvestors/InvestorDescription'
-// import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 // Pages
 // import AboutUs from "layouts/pages/landing-pages/about-us";
@@ -39,7 +38,6 @@ import InvestorDeals from "layouts/pages/Investors/MyDeals/index";
 import InvestorAddDeal from "layouts/pages/Investors/MyDeals/AddDeal";
 import InvestorEditDeal from "layouts/pages/Investors/MyDeals/EditDeal";
 import Trash from 'layouts/pages/Investors/trash';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Requests from 'layouts/pages/Investors/MyRequests';
 
 // Sections
@@ -49,192 +47,226 @@ import Home from "layouts/pages/Home"
 import SignUp from "layouts/pages/Sign-up";
 import SignIn from "layouts/pages/Sign-in";
 
-import {useContext} from "react"
+import { useContext } from "react"
 import { AuthContext } from "context/AuthContext";
 
-function MyRoutes (){
-  const ctx=useContext(AuthContext)
-  console.log("ctxxx",ctx)
+function MyRoutes() {
+  const ctx = useContext(AuthContext)
+  console.log("ctxxx", ctx)
   const routes = [
     {
       name: "Home",
+      key: "Home",
       icon: <HomeIcon />,
       route: "/presentation",
       component: <Home />,
     },
     {
       name: "Find",
-      icon: <SearchIcon/>,
-  
-  
+      icon: <SearchIcon />,
+
       collapse: [
         {
           name: "Find Farms",
+          key: "find-farms",
+
           route: "/farms",
           component: <Farms />,
         },
         {
           name: "Find Investors",
+          key: "find-investor",
+
           route: "/investors",
           component: <Investors />,
         },
         {
           name: "Find Agents",
+          key: "find-agents",
+
           route: "/presentation",
           component: <Home />,
         },
       ],
     },
-    
+
     {
       name: "Guide",
+      key: "guide",
+
       icon: <MenuBookIcon />,
       route: "/presentation",
       component: <Home />,
     },
     {
       name: "Account",
-      icon: <GroupAddIcon/>,
-  
-  
+      icon: <GroupAddIcon />,
+
+
       collapse: [
         {
           name: "Sign-In",
+          key: "sign-in",
+
           route: "/Sign-in",
-          icon:<LoginIcon/>,
+          icon: <LoginIcon />,
           component: <SignIn />,
         },
         {
           name: "Sign-Up",
+          key: "sign-up",
+
           route: "/Sign-Up",
           component: <SignUp />,
         },
-        
+
       ],
     },
-  
-    
+
+
   ];
-  
-  
-   const greenhand = [
+
+
+  const greenhand = [
     {
       name: "farms/description",
-      icon: <GitHubIcon />,
+      key: "farm-description",
+
       route: "/farms/description/:id",
       component: <FarmDescription />,
     },
     {
       name: "investor/description",
-      icon: <GitHubIcon />,
+      key: "investor-description",
+
       route: "/investor/description/:id",
       component: <InvestorDescription />,
     },
   ]
 
 
-  if(window.localStorage.getItem("userTypeId")==2){
+  if (window.localStorage.getItem("userTypeId") == 2) {
     routes.pop(
       {
         name: "Account",
-        icon: <Icon>dashboard</Icon>,
-    
-    
+        icon: <GroupAddIcon />,
+
+
         collapse: [
           {
             name: "Sign-In",
+            key: "sign-in",
+
             route: "/Sign-in",
+            icon: <LoginIcon />,
             component: <SignIn />,
           },
           {
             name: "Sign-Up",
+            key: "sign-up",
+
             route: "/Sign-Up",
             component: <SignUp />,
           },
-          
+
         ],
       },
     )
-routes.push({
-  // name: "Account",
-  icon: <Icon fontSize="small">account_circle</Icon>,
+    routes.push({
+      // name: "Account",
+      icon: <Icon fontSize="small">account_circle</Icon>,
 
-  collapse: [
-    {
-      name: "Profile",
-      route: "/Profile",
-      component: <Profile />,
+      collapse: [
+        {
+          name: "Profile",
+          key: 'profile',
+          route: "/Profile",
+          component: <Profile />,
+        },
+        {
+          name: "My Farms",
+          key: 'my-farms',
+          route: "/My_Farms",
+          component: <Farmers />,
+        },
+        {
+          name: "My Deals",
+          key: 'mt-deals',
+          route: "/My_deals",
+          component: <Deals />,
+        },
+        {
+          name: "My Trash",
+          key: 'my-trash',
+          route: "/My_Trash",
+          component: <MyTrash />,
+        },
+        {
+          name: "Sign out",
+          key: 'sign-out',
+          route: "/Sign-out",
+          component: <SignOut />,
+        },
+
+      ],
+
     },
-    {
-      name: "My Farms",
-      route: "/My_Farms",
-      component: <Farmers />,
+    )
+    greenhand.push({
+      name: "deal/add",
+      key: 'add-deal',
+      route: "/deal/add",
+      component: <AddDeal />,
     },
-    {
-      name: "My Deals",
-      route: "/My_deals",
-      component: <Deals />,
-    },
-    {
-      name: "My Trash",
-      route: "/My_Trash",
-      component: <MyTrash />,
-    },
-    {
-      name: "Sign out",
-      route: "/Sign-out",
-      component: <SignOut />,
-    },
-    
-  ],
-  
-},
-)
-greenhand.push({
-  name: "deal/add",
-  icon: <GitHubIcon />,
-  route: "/deal/add",
-  component: <AddDeal />,
-},
-{
-  name: "deal/edit",
-  icon: <GitHubIcon />,
-  route: "/deal/edit/:id",
-  component: <EditDeal />,
-},
-{
-  name: "farm/add",
-  icon: <GitHubIcon />,
-  route: "/farm/add",
-  component: <AddFarm />,
-},
-{
-  name: "farm/edit",
-  icon: <GitHubIcon />,
-  route: "/farm/edit/:id",
-  component: <EditFarm />,
-},)
+      {
+        name: "deal/edit",
+        key: 'edit-deal',
+        route: "/deal/edit/:id",
+        component: <EditDeal />,
+      },
+      {
+        name: "add farm",
+        key: 'add-farm',
+        route: "/farm/add",
+        component: <AddFarm />,
+      },
+      {
+        name: "edit-farm",
+        key: 'edit-farm',
+        route: "/farm/edit/:id",
+        component: <EditFarm />,
+      },
+      {
+        name: "editProfile",
+        key: 'edit-profile',
+        route: "profile/edit",
+        component: <EditProfile />,
+      }
+    )
 
 
-  }else if(window.localStorage.getItem("userTypeId")==3){
+  } else if (window.localStorage.getItem("userTypeId") == 3) {
     routes.pop(
       {
         name: "Account",
-        icon: <Icon>dashboard</Icon>,
-    
-    
+        icon: <GroupAddIcon />,
+
+
         collapse: [
           {
             name: "Sign-In",
+            key: "sign-in",
             route: "/Sign-in",
+            icon: <LoginIcon />,
             component: <SignIn />,
           },
           {
             name: "Sign-Up",
+            key: "sign-up",
             route: "/Sign-Up",
             component: <SignUp />,
           },
-          
+
         ],
       },
     )
@@ -242,68 +274,75 @@ greenhand.push({
       {
         //name: "Accountttt",
         icon: <Icon fontSize="small">account_circle</Icon>,
-    
-    
+
+
         collapse: [
           {
             name: "Profile",
+            key: 'investor-profile',
             route: "/profile",
             component: <UserProfile />,
           },
           {
             name: "My Requests",
+            key: 'imy-requests',
             route: "/my-requests",
             component: <Requests />,
           },
           {
             name: "My Deals",
+            key: 'my-deals',
             route: "/my-deals",
             component: <InvestorDeals />,
           },
           {
             name: "My Trash",
+            key: 'investor-trash',
             route: "/my-trash",
             component: <Trash />,
           },
           {
             name: "Sign-out",
+            key: 'sign-out',
             route: "/sign-out",
             component: <SignOut />,
           },
-          
+
         ],
       },
     )
     greenhand.push(
       {
         name: "requests/add",
-        icon: <GitHubIcon />,
         route: "/requests/add/:id",
         component: <AddRequest />,
       },
       {
         name: "requests/edit",
-        icon: <GitHubIcon />,
         route: "/requests/edit/:id",
         component: <EditRequest />,
       },
       {
         name: "deals/add",
-        icon: <GitHubIcon />,
         route: "/deals/add/:id",
         component: <InvestorAddDeal />,
       },
       {
         name: "deal/edit",
-        icon: <GitHubIcon />,
         route: "/deals/edit/:id",
         component: <InvestorEditDeal />,
       },
+      {
+        name: "editProfile",
+        key: 'edit-profile',
+        route: "profile/edit",
+        component: <EditProfile />,
+      }
     )
 
   }
-  
-return [routes,
-  greenhand]
+
+  return [routes,
+    greenhand]
 }
 export default MyRoutes;

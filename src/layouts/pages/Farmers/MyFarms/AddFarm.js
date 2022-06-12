@@ -384,11 +384,13 @@ export default function AddFarm() {
                   </Box>
                 </MKBox>
                 <MKBox mb={2}>
+                  
                   <MKInput
                     ref={farmPictureRef}
                     type="file"
                     variant="standard"
                     fullWidth
+                    
                   />
                 </MKBox>
 
