@@ -132,6 +132,18 @@ export default function FarmDescription() {
                                                         </TableHead>
                                                         <TableBody>
 
+                                                        <TableRow key="ds"
+                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+
+                                                                <TableCell component="th" scope="row">
+                                                                Farm Visibiltiy:
+                                                                </TableCell>
+                                                                <TableCell component="th" scope="row">
+                                                                    {farmCtx.place?.farmVisibiltiy ? <CheckIcon /> : <NotInterestedIcon />}
+                                                                </TableCell>
+
+                                                            </TableRow>
+
                                                             <TableRow key="ds"
                                                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 

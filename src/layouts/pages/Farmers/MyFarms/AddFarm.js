@@ -114,6 +114,8 @@ export default function AddFarm() {
     }).then(responce => {
       responce.json().then(farmAdded => {
         console.log(farmAdded)
+        alert(farmAdded.messages)
+
         navigat("/My_Farms")
         setServerResponce(farmAdded.messages.join(' '))
         if (farmAdded.success) {
@@ -125,6 +127,7 @@ export default function AddFarm() {
         setOpenSnakBar(true)
       })
     }).catch(e => e)
+    navigat("/My_Farms")
 
   };
 
