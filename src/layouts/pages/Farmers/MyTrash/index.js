@@ -141,13 +141,13 @@ export default function Trush() {
     const [farmRows, setFarmRows] = useState([])
     const fid = 9
     useEffect(() => {
-      request(`${process.env.REACT_APP_API_URL}farms?userId=${fid}&deleted=${1}`, {}, null, {
+      request(`${process.env.REACT_APP_API_URL}farms?deleted=${1}`, {}, null, {
         auth: true,
       }, 'get')
         .then(farms => {
 
         //   setFarmsData(farms?.data)
-        //   console.log("dddddd", farms?.data?.deleted)
+          console.log("dddddd", farms?.data)
         const allfarms = farms?.data?.map((farm) => {
             return {
                 id: farm.id, 

@@ -115,7 +115,7 @@ export default function EditDeal() {
                                     </MKBox>
 
                                     <MKBox mb={2}>
-                                        <MKInput type="text" label="dealPrice" variant="standard" fullWidth value={dealData?.dealPrice} onChange={(e) => { setDealData({ ...dealData, dealPrice: e.target.value }) }} />
+                                        <MKInput type="text" label="dealPrice $" variant="standard" fullWidth value={dealData?.dealPrice} onChange={(e) => { setDealData({ ...dealData, dealPrice: e.target.value }) }} />
                                     </MKBox>
 
 
