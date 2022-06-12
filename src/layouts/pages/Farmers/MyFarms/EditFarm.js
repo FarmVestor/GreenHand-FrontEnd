@@ -18,8 +18,11 @@ import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useRequest } from "lib/functions";
 import { NativeSelect } from "@mui/material";
-
 import { Wrapper } from "@googlemaps/react-wrapper";
+import { useNavigate } from "react-router-dom";
+
+
+
 function Map({ center, zoom, prevState, updateFarm }) {
   const mapRef = useRef(null)
   const [map, setMap] = useState()
@@ -44,6 +47,7 @@ function Map({ center, zoom, prevState, updateFarm }) {
   return (<div ref={mapRef} style={{ height: '400px' }} />)
 }
 export default function EditFarm() {
+  const navigat=useNavigate()
   const request = useRequest()
   const ctx = useContext(AuthContext);
   const { id } = useParams()
@@ -100,6 +104,8 @@ export default function EditFarm() {
         alert(farmedited.messages)
       })
     }).catch(e => e)
+    navigat("/My_Farms")
+
 
   };
 
