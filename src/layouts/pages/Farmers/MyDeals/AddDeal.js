@@ -44,7 +44,7 @@ export default function AddDeal() {
     const [farmId, setFarmId] = useState([])
 
     useEffect(() => {
-        request(`${process.env.REACT_APP_API_URL}farms?userId=${id}`, {}, null, {
+        request(`${process.env.REACT_APP_API_URL}farms`, {}, null, {
             auth: true,
         }, 'get').then(data => {
             // console.log("current deal data", data?.data)
@@ -71,12 +71,13 @@ export default function AddDeal() {
 
 
         }, {
-            // auth: true,
+            auth: true,
             type: 'json',
             snackbar: true,
             redirect: "/My_deals"
 
         }, 'post').then(data => {
+            alert(data.messages)
             console.log(data)
         })
     }
@@ -138,7 +139,7 @@ export default function AddDeal() {
 
 
                                 <MKBox mb={2}>
-                                    <MKInput type="text" label="dealPrice" variant="standard" fullWidth ref={dealPriceIdRef} />
+                                    <MKInput type="text" label="dealPrice $" variant="standard" fullWidth ref={dealPriceIdRef} />
                                 </MKBox>
 
 

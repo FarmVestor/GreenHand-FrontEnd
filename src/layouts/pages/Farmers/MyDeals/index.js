@@ -58,7 +58,7 @@ export default function Deals() {
 
         },]
     const request = useRequest()
-    // const [dealsData, setDealsData] = useState([])
+    const [dealsData, setDealsData] = useState([])
     // const id = 1
 
     const [rows, setRows] = useState([])
@@ -69,7 +69,7 @@ export default function Deals() {
                 snackbar: true
 
             }, 'delete').then(data => {
-                console.log(data.messages)
+                // console.log(data.messages)
                 const updatedRows=rows.filter((row)=>row.id != dealId)
                 setRows(updatedRows)
             })
@@ -83,8 +83,8 @@ export default function Deals() {
             auth:true
         }, 'get')
             .then(deals => {
-                // setDealsData(deals?.data)
-                // console.log("dddddd", deals)
+                setDealsData(deals?.data)
+                console.log("dddddd", deals)
                 const alldeals = deals?.data?.map((deal) => {
                     return {
                         id: deal.id, 

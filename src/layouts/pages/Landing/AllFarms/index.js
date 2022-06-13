@@ -40,7 +40,7 @@ export default function Farms() {
   // get farmkinds
   useEffect(() => {
     request(`${process.env.REACT_APP_API_URL}farms/farmKinds/all`, {}, null, {
-      auth: true,
+      // auth: true,
     }, 'get')
       .then((farmkinds) => {
         console.log("farmkinds", farmkinds)
@@ -53,7 +53,7 @@ export default function Farms() {
   //get cities
   useEffect(() => {
     request(`${process.env.REACT_APP_API_URL}addresses/city`, {}, null, {
-      auth: true,
+      // auth: true,
     }, 'get')
       .then((city) => {
         console.log("cityData", city)
@@ -66,7 +66,7 @@ export default function Farms() {
   //get crops and last crops
   useEffect(() => {
     request(`${process.env.REACT_APP_API_URL}farms/crops/all`, {}, null, {
-      auth: true,
+      // auth: true,
     }, 'get')
       .then((crop) => {
         console.log("cropsData", crop)

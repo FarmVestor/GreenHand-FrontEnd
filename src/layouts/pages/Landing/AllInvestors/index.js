@@ -15,7 +15,7 @@ import { FormControl, NativeSelect } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 
 // Images
-import bgBack from "assets/images/bg.jpg";
+import bgBack from "assets/images/investors1.jpeg";
 
 import Card from "@mui/material/Card";
 import { useRequest } from "lib/functions";
@@ -105,7 +105,8 @@ export default function Investors() {
 
                     onChange={(e) => { updateFilter({ cropId: e.target.value }) }}
                   >
-                    <option value={null} >all</option>
+                    <option value='' ></option>
+                    <option value='' >all</option>
                     {cropData?.map((crop, i) => {
                       return (
                         <option value={crop.id} key={i}>
@@ -128,7 +129,8 @@ export default function Investors() {
 
                     onChange={(e) => { updateFilter({ farmKindId: e.target.value }) }}
                   >
-                    <option value={null} >all</option>
+                    <option value='' ></option>
+                    <option value='' >all</option>
                     {farmKindData?.map((farmkind, i) => {
                       return (
                         <option value={farmkind.id} key={i}>

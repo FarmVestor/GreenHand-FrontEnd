@@ -28,7 +28,7 @@ export const useRequest = () => {
         return await fetch(url, options)
             .then(async response => {
                 if (response.status == 401) {
-                    navigate('/sign-in')
+                    navigate('/Sign-in')
                     return
 
                 }
