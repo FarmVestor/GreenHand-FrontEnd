@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -8,9 +8,6 @@ import Card from "@mui/material/Card";
 import MKButton from "components/MKButton";
 import MKInput from "components/MKInput";
 import { Container } from "@mui/system";
-// Material Dashboard 2 React context
-import { useMaterialUIController } from "context";
-import { Box } from "@mui/system";
 import { InputLabel } from "@mui/material";
 import { NativeSelect } from "@mui/material";
 // Material Dashboard 2 React components
@@ -21,12 +18,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { useRequest } from "lib/functions";
 
 import { FormControl } from "@mui/material";
-import { FormLabel } from "@mui/material";
-import { RadioGroup } from "@mui/material";
-import { FormControlLabel } from "@mui/material";
-import { Radio } from "@mui/material";
-import { Params } from "react-router-dom";
-import { Crop } from "@mui/icons-material";
 
 export default function EditRequest() {
     const request = useRequest()
@@ -59,7 +50,7 @@ export default function EditRequest() {
             budget: requestData.budget,
             farmKindId: farmKind,
             cropId: crop,
-            userId: userId
+           
         }, {
              auth: true,
             type: 'json',
@@ -221,25 +212,7 @@ export default function EditRequest() {
                                          </NativeSelect>
                                         </FormControl>
                     
-                                        <FormControl fullWidth>
-                                        <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                                            Users
-                                        </InputLabel>
-                                        <NativeSelect
-                                            // defaultValue={1}
-                                            inputProps={{
-                                                name: 'user',
-                                                id: 'uncontrolled-native',
-                                            }}
-                                            onChange={handleusersRefChange}
-                                            value={requestData.User?.id}
-
-                                        >
-                                            <option></option>
-
-                                            {users?.map((user, i) => <option value={user.id} key={i}>{user.userName}</option>)}
-                                        </NativeSelect>
-                                    </FormControl>
+                                        
                                     <MKBox mt={4} mb={1}>
                                         <MKButton variant="gradient" color="success" fullWidth onClick={saveRequest}>
                                             Save Request

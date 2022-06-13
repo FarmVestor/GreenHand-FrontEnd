@@ -31,8 +31,7 @@ import { useRequest } from "lib/functions";
 
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { Crop } from "@mui/icons-material";
-
+import ContactForm from 'layouts/pages/ContactForm'
 
 export default function InvestorDescription() {
     const request = useRequest()
@@ -72,6 +71,7 @@ export default function InvestorDescription() {
                                         User Email: {usersData?.userEmail}
                                         </MKTypography>
                                     </MKBox>
+                                    <ContactForm />
                                     <MKBox pt={0.5} pb={3} px={3}>
                                         <Grid container>
                                           

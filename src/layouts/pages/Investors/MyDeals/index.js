@@ -106,7 +106,7 @@ export default function InvestorDeals() {
             <Grid  height={"2vh"} item xs={12} md={8} sx={{ mb: 6 }}>
           </Grid>
           <Container>
-          <Grid  item xs={11} xl={12} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
+          <Grid item xs={11} xl={12}  alignItems="center" sx={{ mx: "auto" }}>
             <MKBox pt={6} pb={3}>
                 <Grid container spacing={6}>
                     <Grid item xs={12}>
@@ -130,7 +130,7 @@ export default function InvestorDeals() {
                                     My Deals
                                 </MKTypography>
 
-                                <Link to='/deals/add/:id'>
+                                <Link to='/deals/add'>
                                     <MKButton  color="black" variant="text">
                                         <Icon>add_circle</Icon>&nbsp;Add
                                     </MKButton>

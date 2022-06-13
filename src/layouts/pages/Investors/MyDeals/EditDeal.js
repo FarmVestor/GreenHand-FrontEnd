@@ -16,21 +16,11 @@ import MKButton from "components/MKButton";
 
 
 import MKInput from "components/MKInput";
-import Checkbox from "@mui/material/Checkbox";
-
-
-// @mui material components
-import Icon from "@mui/material/Icon";
-
-// Material Dashboard 2 React context
-import { useMaterialUIController } from "context";
-
-// Material Dashboard 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 // import Footer from "examples/Footer";
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { useRequest } from "lib/functions";
 
@@ -39,16 +29,17 @@ import { FormLabel } from "@mui/material";
 import { RadioGroup } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
 import { Radio } from "@mui/material";
+import { AuthContext } from "context/AuthContext";
 
 export default function InvestorEditDeal() {
+    const ctx = useContext(AuthContext)
     const request = useRequest()
 
     const { id } = useParams()
     console.log(typeof id,id)
     const [dealData, setDealData] = useState({
-        farmId: id,
-        agentId: null,
-        investorId: null,
+        farmId: null,
+       
         dealPrice: 0,
         dealStatus: 0,
     })
@@ -65,19 +56,19 @@ export default function InvestorEditDeal() {
     const editDeal = () => {
         request(`${process.env.REACT_APP_API_URL}deals/${id}`, {}, {
             farmId: dealData?.farmId,
-            agentId: dealData?.agentId ? dealData?.agentId : null,
-            investorId: dealData?.investorId ? dealData?.investorId : null,
             dealPrice: dealData?.dealPrice,
             dealStatus: dealData?.dealStatus,
+            investorId:ctx.userId
 
 
         }, {
              auth: true,
             type: 'json',
-            snackbar: true,
+           
             redirect:"/my-deals"
 
         }, 'put').then(data => {
+            alert(data.messages)
             console.log(data)
         })
 
@@ -134,15 +125,7 @@ export default function InvestorEditDeal() {
                                             </RadioGroup>
                                         </FormControl>
                                     </MKBox>
-                                    {/* <MKTypography variant="h6" color="info">
-                                        Add Either an Agent or an Investor
-                                    </MKTypography>
-                                    <MKBox mb={2}>
-                                        <MKInput type="text" label="agentId" variant="standard" fullWidth value={dealData?.agentId} onChange={(e) => { setDealData({ ...dealData, agentId: e.target.value }) }} />
-                                    </MKBox> */}
-                                    <MKBox mb={2}>
-                                        <MKInput type="text" label="investorId" variant="standard" fullWidth value={dealData?.investorId} onChange={(e) => { setDealData({ ...dealData, investorId: e.target.value }) }} />
-                                    </MKBox>
+                                   
 
 
 

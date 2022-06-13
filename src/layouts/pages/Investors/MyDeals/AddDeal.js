@@ -17,7 +17,7 @@ import { Container } from "@mui/system";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect,useContext } from "react";
 
 import { useRequest } from "lib/functions";
 
@@ -27,8 +27,10 @@ import { RadioGroup } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
 import { Radio } from "@mui/material";
 import { Params } from "react-router-dom";
+import {AuthContext} from 'context/AuthContext'
 
 export default function InvestorAddDeal() {
+    const ctx= useContext(AuthContext)
     const request = useRequest()
     const [dealStatus, setDealStatus] = useState()
     const dealFarmIdRef = useRef(null)
@@ -42,7 +44,7 @@ export default function InvestorAddDeal() {
         request(`${process.env.REACT_APP_API_URL}farms`, {}, null, {
             auth: true,
         }, 'get').then(data => {
-             console.log("current deal data", data?.data)
+            console.log("current deal data", data?.data)
             setFarms(data?.data)
         })
     }, [])
@@ -52,23 +54,25 @@ export default function InvestorAddDeal() {
     };
 
     const saveDeal = () => {
+        const farmId= dealFarmIdRef.current.querySelector('input[type=text]').value
         const dealPrice = dealPriceIdRef.current.querySelector('input[type=text]').value
-        const investorId = dealInvestorRef.current.querySelector('input[type=text]').value
 
         request(`${process.env.REACT_APP_API_URL}deals`, {}, {
             farmId,
-            investorId: investorId ? investorId : null,
+            investorId: ctx.userId ,
             dealPrice,
             dealStatus,
 
 
         }, {
-             auth: true,
+            auth: true,
             type: 'json',
             snackbar: true,
-            redirect: "/My_deals"
+            redirect: "/my-deals"
 
         }, 'post').then(data => {
+            alert(data.messages)
+
             console.log(data)
         })
     }
@@ -77,34 +81,39 @@ export default function InvestorAddDeal() {
 
     return (
         <MKBox pt={6} pb={3}>
-             <Grid  height={"5vh"} item xs={12} md={8} sx={{ mb: 6 }}>
-                 </Grid>
-                 <Container>
-                 <Grid  item xs={11} xl={12} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
-            <Grid container spacing={6}>
-                <Grid item xs={12}>
-                    <Card>
-                        <MKBox
-                            mx={2}
-                            mt={2}
-                            py={3}
-                            px={2}
-                            variant="gradient"
-                            style={{backgroundColor:"#ECFFDC"}}   
-                            borderRadius="lg"
-                            coloredShadow="info"
-                        >
-                            <MKTypography variant="h6" color="black">
-                                Add Deal
-                            </MKTypography>
-                        </MKBox>
-                        <MKBox pt={4} pb={3} px={3}>
-                            <MKBox component="form" role="form">
+            <Grid height={"5vh"} item xs={12} md={8} sx={{ mb: 6 }}>
+            </Grid>
+            <Container>
+                <Grid item xs={11} xl={12} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
+                    <Grid container spacing={6}>
+                        <Grid item xs={12}>
+                            <Card>
+                                <MKBox
+                                    mx={2}
+                                    mt={2}
+                                    py={3}
+                                    px={2}
+                                    variant="gradient"
+                                    style={{ backgroundColor: "#ECFFDC" }}
+                                    borderRadius="lg"
+                                    coloredShadow="info"
+                                >
+                                    <MKTypography variant="h6" color="black">
+                                        Add Deal
+                                    </MKTypography>
+                                </MKBox>
+                                <MKBox pt={4} pb={3} px={3}>
+                                    <MKBox component="form" role="form">
 
 
-                                <MKBox mb={2}>
-                                
-                                    <Box sx={{ minWidth: 120 }}>
+                                        <MKBox mb={2}>
+
+                                            <MKBox mb={2}>
+                                                <MKInput type="text" label="farmId" variant="standard" fullWidth ref={dealFarmIdRef}
+
+                                                />
+                                            </MKBox>
+                                            {/* <Box sx={{ minWidth: 120 }}>
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">
                                                 Farm Name
@@ -127,46 +136,43 @@ export default function InvestorAddDeal() {
                                                 })}
                                             </NativeSelect>
                                         </FormControl>
-                                    </Box>
+                                    </Box> */}
+                                        </MKBox>
+
+
+                                        <MKBox mb={2}>
+                                            <MKInput type="text" label="dealPrice $" variant="standard" fullWidth ref={dealPriceIdRef} />
+                                        </MKBox>
+
+
+                                        <MKBox mb={2}>
+                                            <FormControl>
+                                                <FormLabel id="demo-row-radio-buttons-group-label">deal Status</FormLabel>
+                                                <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" onChange={(event) => {
+                                                    setDealStatus(event.target.value)
+                                                }}>
+                                                    <FormControlLabel value={true} control={<Radio />} label="ِAgreed" />
+                                                    <FormControlLabel value={false} control={<Radio />} label="Not Agreed yet" />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </MKBox>
+
+                                       
+
+
+
+                                        <MKBox mt={4} mb={1}>
+                                            <MKButton variant="gradient" color="success" fullWidth onClick={saveDeal}>
+                                                Save Deal
+                                            </MKButton>
+                                        </MKBox>
+                                    </MKBox>
                                 </MKBox>
-
-
-                                <MKBox mb={2}>
-                                    <MKInput type="text" label="dealPrice" variant="standard" fullWidth ref={dealPriceIdRef} />
-                                </MKBox>
-
-
-                                <MKBox mb={2}>
-                                    <FormControl>
-                                        <FormLabel id="demo-row-radio-buttons-group-label">deal Status</FormLabel>
-                                        <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" onChange={(event) => {
-                                            setDealStatus(event.target.value)
-                                        }}>
-                                            <FormControlLabel value={true} control={<Radio />} label="ِAgreed" />
-                                            <FormControlLabel value={false} control={<Radio />} label="Not Agreed yet" />
-                                        </RadioGroup>
-                                    </FormControl>
-                                </MKBox>
-
-                                <MKBox mb={2}>
-                                    <MKInput type="text" label="investorId" variant="standard" fullWidth ref={dealInvestorRef} />
-                                </MKBox>
-
-
-
-
-                                <MKBox mt={4} mb={1}>
-                                    <MKButton variant="gradient" color="success" fullWidth onClick={saveDeal}>
-                                        Save Deal
-                                    </MKButton>
-                                </MKBox>
-                            </MKBox>
-                        </MKBox>
-                    </Card>
+                            </Card>
+                        </Grid>
+                    </Grid>
                 </Grid>
-            </Grid>
-            </Grid>
-         </Container>
+            </Container>
         </MKBox>
 
 

@@ -324,7 +324,7 @@ function MyRoutes() {
       },
       {
         name: "deals/add",
-        route: "/deals/add/:id",
+        route: "/deals/add",
         component: <InvestorAddDeal />,
       },
       {
