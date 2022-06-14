@@ -101,10 +101,10 @@ export default function Farms() {
     <Card>
       <MKBox component="section" py={6} my={6}>
         <Container>
-          <Grid container item xs={11} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
+          <Grid  item xs={11} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
             <MKBox bgColor="white">
 
-              <Grid py={5} display={"inline-flex"} justify-content={"center"} spacing={3} >
+              <Grid py={5} display={"inline-flex"} width='100%'  spacing={5} >
 
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">

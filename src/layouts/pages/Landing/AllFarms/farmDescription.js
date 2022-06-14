@@ -16,16 +16,17 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 import MKTypography from "components/MKTypography";
-
+import MKInput from "components/MKInput";
+import MKButton from "components/MKButton";
 import Card from "@mui/material/Card";
 import { useRequest } from "lib/functions";
 
 import React, { useEffect, useState, useContext, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import CheckIcon from '@mui/icons-material/Check';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
-
+import { AuthContext } from "context/AuthContext";
 
 
 function Map({ center, zoom, children }) {
@@ -73,17 +74,30 @@ const Marker = (options) => {
 };
 
 export default function FarmDescription() {
+    // const ctx = useContext(AuthContext)
+    var showMssg=1
+    const { pathname } = useLocation();
+    const { id } = useParams()
+    console.log("pathname",pathname)
+    if (pathname == `/myFarms/description/${id}`) {
+        showMssg=0
+    } else (
+        showMssg=1
+    )
+    const emailRef = useRef(null)
+    const mssgRef = useRef(null)
+
     const farmCtx = useContext(FarmLocation)
     const request = useRequest()
     const [farmsData, setFarmsData] = useState([])
 
-    const { id } = useParams()
+
     useEffect(() => {
         request(`${process.env.REACT_APP_API_URL}farms/${id}`, {}, null, {
             // auth: true,
         }, 'get')
             .then(farm => {
-                // setFarmsData(farm.data)
+                setFarmsData(farm.data)
                 farmCtx.setPlace(farm.data)
                 console.log("farm desc", farm)
                 console.log("dddddd", typeof farmCtx?.City?.longitude)
@@ -92,6 +106,33 @@ export default function FarmDescription() {
             })
     }, [])
 
+    console.log("farmsData", farmsData)
+    const handleSubmit = () => {
+
+        const mssg = mssgRef.current.querySelector('input[type=text]').value
+        const email = emailRef.current.querySelector('input[type=email]').value
+
+
+
+        fetch("http://localhost:3000/contacts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                farmName: farmsData?.farmName,
+                mssg,
+                email,
+                reciever: farmsData?.User?.userEmail,
+                recieverName: farmsData?.User?.userName
+            }),
+        }).then(response => {
+            response.json().then(data => {
+                console.log("data", data)
+            })
+        });
+
+    }
     return (
         <Card>
 
@@ -111,12 +152,12 @@ export default function FarmDescription() {
                             <Grid item xs={12} lg={6}>
                                 <MKBox component="form" p={2} method="post">
                                     {/* <MKBox px={3} py={{ xs: 2, sm: 6 }}> */}
-                                        <MKTypography variant="h2" mb={1}>
-                                            {farmCtx.place?.farmName}
-                                        </MKTypography>
-                                        <MKTypography variant="body1" color="text" mb={2}>
-                                            {farmCtx.place?.User?.userName}
-                                        </MKTypography>
+                                    <MKTypography variant="h2" mb={1}>
+                                        {farmCtx.place?.farmName}
+                                    </MKTypography>
+                                    <MKTypography variant="body1" color="text" mb={2}>
+                                        {farmCtx.place?.User?.userName}
+                                    </MKTypography>
                                     {/* </MKBox> */}
                                     <MKBox pt={0.5} pb={3} px={3}>
                                         <Grid container>
@@ -132,17 +173,6 @@ export default function FarmDescription() {
                                                         </TableHead>
                                                         <TableBody>
 
-                                                        <TableRow key="ds"
-                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-
-                                                                <TableCell component="th" scope="row">
-                                                                Farm Visibiltiy:
-                                                                </TableCell>
-                                                                <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.farmVisibiltiy ? <CheckIcon /> : <NotInterestedIcon />}
-                                                                </TableCell>
-
-                                                            </TableRow>
 
                                                             <TableRow key="ds"
                                                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -162,8 +192,8 @@ export default function FarmDescription() {
                                                                     Farm Area:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.farmArea}                                                               
-                                                                     </TableCell>
+                                                                    {farmCtx.place?.farmArea}
+                                                                </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -173,8 +203,8 @@ export default function FarmDescription() {
                                                                     Current Crop Name:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.Crop?.cropName}                                                            
-                                                                         </TableCell>
+                                                                    {farmCtx.place?.Crop?.cropName}
+                                                                </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -184,8 +214,8 @@ export default function FarmDescription() {
                                                                     Current Tree Age:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.farmTreesAge}                                                     
-                                                                             </TableCell>
+                                                                    {farmCtx.place?.farmTreesAge}
+                                                                </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -195,8 +225,8 @@ export default function FarmDescription() {
                                                                     Last Crop Name:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.LastCrop?.cropName}           
-                                                                                                                   </TableCell>
+                                                                    {farmCtx.place?.LastCrop?.cropName}
+                                                                </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -206,8 +236,8 @@ export default function FarmDescription() {
                                                                     Farm License:
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row">
-                                                                    {farmCtx.place?.farmLicense}    
-                                                               </TableCell>
+                                                                    {farmCtx.place?.farmLicense}
+                                                                </TableCell>
 
                                                             </TableRow>
                                                             <TableRow key="ds"
@@ -262,18 +292,68 @@ export default function FarmDescription() {
                             </Grid>
 
                         </Grid>
-                        <Grid item xs={12} sm={6} lg={3}>
-                            <MKBox
-                                component="img"
-                                src={farmCtx.place?.farmPicture}
-                                alt={farmCtx.place?.farmName}
-                                borderRadius="lg"
-                                shadow="md"
-                                width="100%"
-                                position="relative"
-                                zIndex={1}
-                            />
+                        <Grid container display={"inline-flex"} justifyContent="space-between" >
+                            <Grid item xs={12} sm={6} lg={3}>
+                                <MKBox
+                                    component="img"
+                                    src={farmCtx.place?.farmPicture}
+                                    alt={farmCtx.place?.farmName}
+                                    borderRadius="lg"
+                                    shadow="md"
+                                    width="100%"
+                                    position="relative"
+                                    zIndex={1}
+                                />
+                            </Grid>
+                            {showMssg == 1? <MKBox  p={3} lg={9}>
+                                    <MKTypography variant="body2" color="text" mb={3}>
+                                        If you are intersted in this farm, please contact me
+                                    </MKTypography>
+                                    <MKBox width="100%" autocomplete="off">
+                                        {/* <form onSubmit={handleSubmit}> */}
+
+                                        <Grid container spacing={3}>
+                                            <Grid item xs={12}    >
+                                                <MKInput
+                                                    ref={emailRef}
+                                                    type="email"
+
+                                                    variant="standard"
+                                                    label="Sender Email"
+                                                    InputLabelProps={{ shrink: true }}
+                                                    fullWidth
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={12}>
+                                                <MKInput
+                                                    type='text'
+                                                    variant="standard"
+                                                    label="Message"
+
+                                                    ref={mssgRef}
+                                                    InputLabelProps={{ shrink: true }}
+                                                    // multiline
+                                                    fullWidth
+                                                // rows={6}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container item justifyContent="center" xs={12} mt={5} mb={2}>
+                                            <MKButton onClick={handleSubmit} type="submit" variant="gradient" color="success">
+                                                Send Message
+                                            </MKButton>
+                                        </Grid>
+                                        {/* </form> */}
+                                    </MKBox>
+                                </MKBox>
+                                : <></>
+                            }
+
+
+
                         </Grid>
+
 
                     </Grid>
                 </Container>

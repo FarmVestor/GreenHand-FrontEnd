@@ -87,12 +87,21 @@ export default function Investors() {
     <Card>
       <MKBox component="section" py={6} my={6}>
         <Container>
-          <Grid container item xs={11} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
+          <Grid item xs={11} spacing={3} alignItems="center" sx={{ mx: "auto" }}>
             <MKBox bgColor="white">
 
-              <Grid py={5} display={"inline-flex"} justify-content={"center"} spacing={3} >
+              <Grid py={5} display={"inline-flex"} width='100%' justify-content={"center"} spacing={3} >
 
-
+                <MKBox mb={2} width='100%'>
+                  <MKInput
+                    type="text"
+                    value={filter.invName}
+                    label="Search"
+                    variant="standard"
+                    onChange={(e) => { updateFilter({ invName: e.target.value }) }}
+                    fullWidth
+                  />
+                </MKBox>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Crops
@@ -141,16 +150,7 @@ export default function Investors() {
                   </NativeSelect>
                 </FormControl>
 
-                <MKBox mb={2}>
-                  <MKInput
-                    type="text"
-                    value={filter.invName}
-                    label="Search"
-                    variant="standard"
-                    onChange={(e) => { updateFilter({ invName: e.target.value }) }}
-                    fullWidth
-                  />
-                </MKBox>
+
 
 
               </Grid>
@@ -166,31 +166,31 @@ export default function Investors() {
                   boxShadow: ({ boxShadows: { xxl } }) => xxl,
                 }}
               > */}
-                <Grid container spacing={3}>
+              <Grid container spacing={3}>
                 {/* <Grid><MKTypography>No results</MKTypography></Grid> */}
 
-                  {(invisitorsData?.length == 0) ? (<MKTypography>No results</MKTypography>) : (invisitorsData?.map((invisitor, i) => {
-                      return (
-                        <Grid item xs={12} sm={6} lg={3}>
-                          <Link to={`/investor/description/${invisitor.id}`}>
-                            <TransparentBlogCard
-                              image={bgBack}
-                              description={invisitor?.userEmail}
-                              title={invisitor?.userName}
-                              action={{
-                                type: "internal",
-                                route: `/investor/description/${invisitor.id}`,
-                                color: "info",
-                                label: "read more",
-                              }}
-                            />
+                {(invisitorsData?.length == 0) ? (<MKTypography>No results</MKTypography>) : (invisitorsData?.map((invisitor, i) => {
+                  return (
+                    <Grid item xs={12} sm={6} lg={3}>
+                      <Link to={`/investor/description/${invisitor.id}`}>
+                        <TransparentBlogCard
+                          image={bgBack}
+                          description={invisitor?.userEmail}
+                          title={invisitor?.userName}
+                          action={{
+                            type: "internal",
+                            route: `/investor/description/${invisitor.id}`,
+                            color: "info",
+                            label: "read more",
+                          }}
+                        />
 
-                          </Link>
-                        </Grid>
-                      )
-                    }))}
+                      </Link>
+                    </Grid>
+                  )
+                }))}
 
-                </Grid>
+              </Grid>
               {/* </Card> */}
 
             </MKBox>

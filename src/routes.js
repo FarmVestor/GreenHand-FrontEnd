@@ -142,6 +142,12 @@ function MyRoutes() {
       route: "/investor/description/:id",
       component: <InvestorDescription />,
     },
+    {
+      name: "myFarms/description",
+      key: "myfarm-description",
+      route: "/myFarms/description/:id",
+      component: <FarmDescription />,
+    },
   ]
 
 
@@ -241,7 +247,13 @@ function MyRoutes() {
         key: 'edit-profile',
         route: "profile/edit",
         component: <EditProfile />,
-      }
+      },
+      {
+        name: "myFarms/description",
+        key: "myfarm-description",
+        route: "/myFarms/description/:id",
+        component: <FarmDescription />,
+      },
     )
 
 

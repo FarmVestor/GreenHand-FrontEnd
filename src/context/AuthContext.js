@@ -9,7 +9,8 @@ export const AuthContext = createContext({
     login: (token) => {},
     logout: () => {},
     setUserId:()=>{},
-    setUserTypeId:()=>{}
+    setUserTypeId:()=>{},
+    
 
 })
 
@@ -17,6 +18,7 @@ export const AuthProvider = (props) => {
     const [token, setToken] = useState(window.localStorage.getItem('token'))
     const [userId, setUserId] = useState(null)
     const [userTypeId, setUserTypeId] = useState(null)
+
 
     const [isAuthenticated, setIsAuthenticated] = useState(!!token)
     
@@ -38,7 +40,8 @@ export const AuthProvider = (props) => {
         userId,
         setUserId,
         userTypeId,
-        setUserTypeId
+        setUserTypeId,
+       
 
     }}>
         {props.children}

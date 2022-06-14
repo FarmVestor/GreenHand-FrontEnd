@@ -79,8 +79,10 @@ function SignIn() {
           window.localStorage.setItem('token', loggedIn.token)
           window.localStorage.setItem('userTypeId', loggedIn.userTypeId)
           window.localStorage.setItem('userId', loggedIn.userId)
+          window.localStorage.setItem('userEmail', loggedIn.userEmail)
           ctx.setUserTypeId(loggedIn.userTypeId)
           ctx.setUserId(loggedIn.userId)
+
 
           ctx.login(loggedIn?.token)
           navigate('/presentation')
