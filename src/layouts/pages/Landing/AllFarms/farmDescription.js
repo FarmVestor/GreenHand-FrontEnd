@@ -128,7 +128,8 @@ export default function FarmDescription() {
             }),
         }).then(response => {
             response.json().then(data => {
-                console.log("data", data)
+                alert(data.message)
+                console.log("data", data.message)
             })
         });
 
