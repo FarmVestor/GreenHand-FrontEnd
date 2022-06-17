@@ -41,8 +41,8 @@ export default {
     {
       name: "About",
       items: [
-        { name: "Contact Us", href: "https://www.creative-tim.com/contact-us" },
-        { name: "About Us", href: "https://www.creative-tim.com/knowledge-center" },
+        { name: "Contact Us", href: "/presentation" },
+        { name: "About Us", href: "/presentation" },
        
       ],
     },
