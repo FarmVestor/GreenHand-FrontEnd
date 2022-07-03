@@ -19,7 +19,7 @@
 
 ## About 
 1. Users (farmer)
-    Can add/edit a farm 
+    1.1. Can add/edit a farm 
     Can add/edit a deal
     Can show my farm(s)
     Can show my deal(s)
