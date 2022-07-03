@@ -15,4 +15,27 @@
 ## Getting started
 
 1. npm install --save --legacy-peer-deps
-2. npm start 
+2. npm start
+
+## About 
+1. Users (farmer)
+    Can add/edit a farm 
+    Can add/edit a deal
+    Can show my farm(s)
+    Can show my deal(s)
+    Can show/edit my profile 
+    Can delete/undoDelete my farm(s)
+    Can search for investors/agents/other farms
+    Can send message to agents/investor’s email
+
+
+2. Users (investor)
+    Can add/edit a deal
+    Can add/edit a request
+    Can show my deal(s)
+    Can show my request(s)
+    Can show/edit my profile 
+    Can delete/undoDelete deal/request
+    Can search for other investors/agents/farms
+    Can send message to agents/farmer’s email
+
